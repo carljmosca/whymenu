@@ -1,0 +1,12 @@
+target/
+*.class
+*.jar
+*.json
+*.zip
+*.tar
+*.gz
+*.txt
+*.xml
+/.project
+/.settings/
+/nbproject/

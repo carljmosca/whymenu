@@ -17,7 +17,8 @@ public class MenuView extends NavigationView {
         button.addClickListener(new NavigationButtonClickListener() {
             @Override
             public void buttonClick(NavigationButtonClickEvent event) {
-                getNavigationManager().navigateTo(new ItemView());
+//                getNavigationManager().navigateTo(new ItemView());
+                getNavigationManager().navigateTo(new LocationView());
             }
         });
         content.addComponent(button);

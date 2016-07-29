@@ -34,11 +34,8 @@ public class LocationServiceTest {
 
     @Before
     public void setUp() {
-        try {
-            firebaseService = new FirebaseService("orderappdata-837ba");
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+
+        FirebaseService.getInstance();
     }
 
     @After

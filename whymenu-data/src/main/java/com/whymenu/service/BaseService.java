@@ -7,11 +7,12 @@ package com.whymenu.service;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
-import com.whymenu.app.SheetsQuickstart;
-import static com.whymenu.app.SheetsQuickstart.getSheetsService;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -36,6 +37,10 @@ public class BaseService {
     protected List<ValueRange> values;
     protected List<String> ranges;
 
+    private static final String APPLICATION_NAME = "Google Sheets API Java Quickstart";
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static HttpTransport HTTP_TRANSPORT;
+
     public BaseService() {
         try {
             authorizeWithServiceAccount();
@@ -52,9 +57,21 @@ public class BaseService {
         }
     }
 
+    /**
+     * Build and return an authorized Sheets API client service.
+     *
+     * @return an authorized Sheets API client service
+     * @throws IOException
+     */
+    private Sheets getSheetsService() throws IOException {
+        return new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+    }
+
     private void authorizeWithServiceAccount() throws IOException {
         InputStream in
-                = SheetsQuickstart.class.getResourceAsStream("/service_account.json");
+                = BaseService.class.getResourceAsStream("/service_account.json");
         credential = GoogleCredential.fromStream(in)
                 .createScoped(SCOPES);
     }

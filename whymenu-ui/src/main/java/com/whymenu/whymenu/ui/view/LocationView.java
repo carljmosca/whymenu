@@ -28,6 +28,7 @@ public class LocationView extends NavigationView {
     }
 
     private void init() {
+        content = new VerticalComponentGroup();
         buttons = new HashMap<>();
         locationService = new LocationService();
         for (Location location : locationService.loadLocations()) {

@@ -6,56 +6,48 @@
 package com.whymenu.service;
 
 import com.whymenu.data.Location;
-import java.io.FileNotFoundException;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author moscac
  */
 public class LocationServiceTest {
-
-    private FirebaseService firebaseService;
-
+    
     public LocationServiceTest() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     @Before
     public void setUp() {
-
-        FirebaseService.getInstance();
     }
-
+    
     @After
     public void tearDown() {
     }
 
     /**
-     * Test of save method, of class LocationService.
+     * Test of loadLocations method, of class LocationService.
      */
     @Test
-    public void testSave() {
-        System.out.println("save");
-        String key = "testlocation9999";
-        Location location = new Location();
-        location.setDescription("test description");
-        location.setAddress1("123 Main Street");
+    public void testLoadLocations() {
+        System.out.println("loadLocations");
         LocationService instance = new LocationService();
-        instance.save(key, location);
-        key = "totallyNewLocation2";
-        instance.save(key, location);
+        List<Location> result = instance.loadLocations();
+        assertTrue(result != null && !result.isEmpty());
     }
-
+    
 }

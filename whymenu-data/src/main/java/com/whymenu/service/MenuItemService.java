@@ -5,12 +5,20 @@
  */
 package com.whymenu.service;
 
+import com.whymenu.data.MenuItem;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author moscac
  */
-public class MenuItemService  {
-
-    private final String PATH = "menuitems.json";
-
+public class MenuItemService extends BaseService {
+    
+    public List<MenuItem> loadMenuItems() {
+        List<MenuItem> menuItems = new ArrayList<>();
+        
+        return menuItems;
+    }
+    
 }

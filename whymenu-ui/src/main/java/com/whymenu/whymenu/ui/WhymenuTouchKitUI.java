@@ -16,6 +16,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.UI;
+import com.whymenu.service.LocationService;
 
 /**
  * The UI's "main" class
@@ -32,6 +33,8 @@ import com.vaadin.ui.UI;
 @PreserveOnRefresh
 public class WhymenuTouchKitUI extends UI {
 
+    private MenuView menuView;
+
     private final WhymenuPersistToServerRpc serverRpc = () -> {
         // TODO this method is called from client side to store offline data
     };
@@ -41,7 +44,8 @@ public class WhymenuTouchKitUI extends UI {
         final TabBarView tabBarView = new TabBarView();
         final NavigationManager navigationManager = new NavigationManager();
         navigationManager.setCaption("Menu");
-        navigationManager.setCurrentComponent(new MenuView());
+        menuView = new MenuView();
+        navigationManager.setCurrentComponent(menuView);
         Tab tab;
         tab = tabBarView.addTab(navigationManager);
         tab.setIcon(FontAwesome.TASKS);
@@ -59,6 +63,8 @@ public class WhymenuTouchKitUI extends UI {
         // Define the timeout in secs to wait when a server request is sent
         // before falling back to offline mode.
         offlineMode.setOfflineModeTimeout(15);
-    }
-}
 
+    }
+
+
+}

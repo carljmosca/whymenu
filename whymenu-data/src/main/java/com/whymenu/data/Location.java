@@ -13,18 +13,27 @@ import java.io.Serializable;
  */
 public class Location implements Serializable {
 
+    private String name;
     private String description;
-    private String address1;
-    private String address2;
+    private String address;
     private String city;
     private String state;
     private String postalCode;
     private String country;
+    private String hours;
     private double longitude;
     private double latitude;
 
     public Location() {
         
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -35,20 +44,12 @@ public class Location implements Serializable {
         this.description = description;
     }
 
-    public String getAddress1() {
-        return address1;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
-    public String getAddress2() {
-        return address2;
-    }
-
-    public void setAddress2(String address2) {
-        this.address2 = address2;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCity() {
@@ -97,6 +98,14 @@ public class Location implements Serializable {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public String getHours() {
+        return hours;
+    }
+
+    public void setHours(String hours) {
+        this.hours = hours;
     }
     
 }

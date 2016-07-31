@@ -96,11 +96,6 @@ public class MainUI extends UI {
         
         @Override
         public void run() {
-            // Simulate a heavy database operation
-            try {
-                Thread.sleep(4500);
-            } catch (InterruptedException e) {
-            }
 
             // Wrap UI updates in access to properly deal with locking
             access(() -> {

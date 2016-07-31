@@ -36,6 +36,7 @@ public class LocationView extends NavigationView {
                 addLocation(location.getName(), location);
             }
         }
+        setContent(content);
     }
 
     private void addLocation(String key, Location location) {

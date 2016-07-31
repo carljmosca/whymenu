@@ -7,6 +7,7 @@ package com.whymenu.service;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -15,6 +16,7 @@ import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -52,7 +54,7 @@ public class BaseService {
             }
             columns = new HashMap<>();
             ranges = new ArrayList<>();
-        } catch (IOException ex) {
+        } catch (IOException | GeneralSecurityException ex) {
             Logger.getLogger(BaseService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -63,7 +65,8 @@ public class BaseService {
      * @return an authorized Sheets API client service
      * @throws IOException
      */
-    private Sheets getSheetsService() throws IOException {
+    private Sheets getSheetsService() throws IOException, GeneralSecurityException {
+        HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         return new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
                 .build();

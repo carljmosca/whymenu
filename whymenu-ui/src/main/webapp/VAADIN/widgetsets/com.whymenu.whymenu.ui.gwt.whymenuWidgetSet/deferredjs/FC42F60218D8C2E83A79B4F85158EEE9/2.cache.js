@@ -1,0 +1,1 @@
+$wnd.com_whymenu_whymenu_ui_gwt_whymenuWidgetSet.runAsyncCallback2('Veb(854,1,HNd);_.vc=function mtc(){egc((!Zfc&&(Zfc=new kgc),Zfc),this.b.e)};BFd(Vh)(2);\n//# sourceURL=com.whymenu.whymenu.ui.gwt.whymenuWidgetSet-2.js\n')

@@ -28,6 +28,7 @@ public class LocationService extends BaseService {
 
     public List<Location> loadLocations() {
         List<Location> locations = new ArrayList<>();
+        ranges.clear();
         ranges.add(SHEET_NAME + "!A1:Z1");
         ranges.add(SHEET_NAME + "!A2:Z");
         try {

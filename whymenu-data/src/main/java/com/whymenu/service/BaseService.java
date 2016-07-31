@@ -89,4 +89,18 @@ public class BaseService {
         return result;
     }
 
+    protected Integer getIntValue(List<Object> row, int index) {
+        Integer result = 0;
+        if (row.size() >= (index - 1)) {
+            if (row.get(index) != null) {
+                try {
+                    result = Integer.parseInt(row.get(index).toString().trim());
+                } catch (NumberFormatException e) {
+
+                }
+            }
+        }
+        return result;
+    }
+
 }

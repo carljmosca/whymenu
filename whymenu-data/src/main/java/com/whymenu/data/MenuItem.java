@@ -17,7 +17,7 @@ public class MenuItem implements Serializable {
     
     private String name;
     private String description;
-    private int index;
+    private int order;
     private List<MenuItemAttribute> attributes;
     
     public MenuItem() {
@@ -48,12 +48,12 @@ public class MenuItem implements Serializable {
         this.attributes = attributes;
     }
 
-    public int getIndex() {
-        return index;
+    public int getOrder() {
+        return order;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setOrder(int order) {
+        this.order = order;
     }
     
 }

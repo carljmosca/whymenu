@@ -9,18 +9,18 @@ package com.whymenu.data;
  *
  * @author moscac
  */
-public class MenuItemAttributeDetail {
+public class MenuItemAttributeOption {
   
-    private int index;
+    private int order;
     private String description;
     private boolean available;
     
-    public MenuItemAttributeDetail() {
+    public MenuItemAttributeOption() {
         
     }
 
-    public MenuItemAttributeDetail(int index, String description, boolean available) {
-        this.index = index;
+    public MenuItemAttributeOption(int index, String description, boolean available) {
+        this.order = index;
         this.description = description;
         this.available = available;
     }
@@ -41,12 +41,12 @@ public class MenuItemAttributeDetail {
         this.available = available;
     }
 
-    public int getIndex() {
-        return index;
+    public int getOrder() {
+        return order;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setOrder(int order) {
+        this.order = order;
     }
     
 }

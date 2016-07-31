@@ -14,33 +14,42 @@ import java.util.List;
  * @author moscac
  */
 public class MenuItemAttribute implements Serializable {
-    
-    private int index;
-    private List<MenuItemAttributeDetail> details;
+
+    private int order;
+    private String description;
+    private List<MenuItemAttributeOption> details;
     private boolean multiSelect;
-    
+
     public MenuItemAttribute() {
         details = new ArrayList<>();
     }
-    
+
     public MenuItemAttribute(int index, boolean multiSelect) {
-        this.index = index;
+        this.order = index;
         this.multiSelect = multiSelect;
     }
 
-    public int getIndex() {
-        return index;
+    public int getOrder() {
+        return order;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setOrder(int order) {
+        this.order = order;
     }
 
-    public List<MenuItemAttributeDetail> getDetails() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<MenuItemAttributeOption> getDetails() {
         return details;
     }
 
-    public void setDetails(List<MenuItemAttributeDetail> details) {
+    public void setDetails(List<MenuItemAttributeOption> details) {
         this.details = details;
     }
 
@@ -51,5 +60,5 @@ public class MenuItemAttribute implements Serializable {
     public void setMultiSelect(boolean multiSelect) {
         this.multiSelect = multiSelect;
     }
-    
+
 }

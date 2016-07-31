@@ -81,7 +81,7 @@ public class BaseService {
 
     protected String getStringValue(List<Object> row, int index) {
         String result = "";
-        if (row.size() >= (index - 1)) {
+        if (row.size() >= (index + 1)) {
             if (row.get(index) != null) {
                 result = row.get(index).toString().trim();
             }
@@ -90,16 +90,20 @@ public class BaseService {
     }
 
     protected Integer getIntValue(List<Object> row, int index) {
+        String value = getStringValue(row, index);
         Integer result = 0;
-        if (row.size() >= (index - 1)) {
-            if (row.get(index) != null) {
-                try {
-                    result = Integer.parseInt(row.get(index).toString().trim());
-                } catch (NumberFormatException e) {
+        try {
+            result = Integer.parseInt(value);
+        } catch (NumberFormatException e) {
 
-                }
-            }
         }
+        return result;
+    }
+
+    protected boolean getBooleanValue(List<Object> row, int index) {
+        boolean result = true;
+        String value = getStringValue(row, index).toLowerCase();
+        result = !"false".equals(value) && !"no".equals(value) && !"0".equals(value);
         return result;
     }
 

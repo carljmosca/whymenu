@@ -7,6 +7,8 @@ package com.whymenu.service;
 
 import com.google.api.services.sheets.v4.model.BatchGetValuesResponse;
 import com.whymenu.data.MenuItem;
+import com.whymenu.data.MenuItemAttribute;
+import com.whymenu.data.MenuItemAttributeOption;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +19,33 @@ import java.util.List;
  */
 public class MenuItemService extends BaseService {
 
-    private final String SHEET_NAME = "Locations";
     private final String COLUMN_NAME_NAME = "Name";
     private final String COLUMN_NAME_DESCRIPTION = "Description";
-    private final String COLUMN_NAME_INDEX = "Index";
-    private final String COLUMN_NAME_MULTISELECT = "Multiselect";
+    private final String COLUMN_NAME_ORDER = "Order";
+    private final String COLUMN_NAME_A1_DESCRIPTION = "A1 Description";
+    private final String COLUMN_NAME_A1_ORDER = "A1 Order";
+    private final String COLUMN_NAME_A1_MULTISELECT = "A1 Multiselect";
+    private final String COLUMN_NAME_A1_OPTION = "A1 Option";
+    private final String COLUMN_NAME_A1_OPTION_ORDER = "A1 Option Order";
+    private final String COLUMN_NAME_A1_OPTION_AVAILABLE = "A1 Option Available";
+    private final String COLUMN_NAME_A2_DESCRIPTION = "A2 Description";
+    private final String COLUMN_NAME_A2_ORDER = "A2 Order";
+    private final String COLUMN_NAME_A2_MULTISELECT = "A2 Multiselect";
+    private final String COLUMN_NAME_A2_OPTION = "A2 Option";
+    private final String COLUMN_NAME_A2_OPTION_ORDER = "A2 Option Order";
+    private final String COLUMN_NAME_A2_OPTION_AVAILABLE = "A2 Option Available";
+    private final String COLUMN_NAME_A3_DESCRIPTION = "A3 Description";
+    private final String COLUMN_NAME_A3_ORDER = "A3 Order";
+    private final String COLUMN_NAME_A3_MULTISELECT = "A3 Multiselect";
+    private final String COLUMN_NAME_A3_OPTION = "A3 Option";
+    private final String COLUMN_NAME_A3_OPTION_ORDER = "A3 Option Order";
+    private final String COLUMN_NAME_A3_OPTION_AVAILABLE = "A3 Option Available";
 
     public List<MenuItem> loadMenuItems(String locationName) {
         List<MenuItem> menuItems = new ArrayList<>();
         ranges.clear();
         ranges.add(locationName + " Menu!A1:Z1");
-        ranges.add(locationName + " Menu!A1:Z1");
+        ranges.add(locationName + " Menu!A2:Z");
         try {
             BatchGetValuesResponse response
                     = service.spreadsheets().values().
@@ -50,8 +68,62 @@ public class MenuItemService extends BaseService {
                             case COLUMN_NAME_DESCRIPTION:
                                 columns.put(COLUMN_NAME_DESCRIPTION, i);
                                 break;
-                            case COLUMN_NAME_INDEX:
-                                columns.put(COLUMN_NAME_INDEX, i);
+                            case COLUMN_NAME_ORDER:
+                                columns.put(COLUMN_NAME_ORDER, i);
+                                break;
+                            case COLUMN_NAME_A1_DESCRIPTION:
+                                columns.put(COLUMN_NAME_A1_DESCRIPTION, i);
+                                break;
+                            case COLUMN_NAME_A1_ORDER:
+                                columns.put(COLUMN_NAME_A1_ORDER, i);
+                                break;
+                            case COLUMN_NAME_A1_MULTISELECT:
+                                columns.put(COLUMN_NAME_A1_MULTISELECT, i);
+                                break;
+                            case COLUMN_NAME_A1_OPTION:
+                                columns.put(COLUMN_NAME_A1_OPTION, i);
+                                break;
+                            case COLUMN_NAME_A1_OPTION_ORDER:
+                                columns.put(COLUMN_NAME_A1_OPTION_ORDER, i);
+                                break;
+                            case COLUMN_NAME_A1_OPTION_AVAILABLE:
+                                columns.put(COLUMN_NAME_A1_OPTION_AVAILABLE, i);
+                                break;
+                            case COLUMN_NAME_A2_DESCRIPTION:
+                                columns.put(COLUMN_NAME_A2_DESCRIPTION, i);
+                                break;
+                            case COLUMN_NAME_A2_ORDER:
+                                columns.put(COLUMN_NAME_A2_ORDER, i);
+                                break;
+                            case COLUMN_NAME_A2_MULTISELECT:
+                                columns.put(COLUMN_NAME_A2_MULTISELECT, i);
+                                break;
+                            case COLUMN_NAME_A2_OPTION:
+                                columns.put(COLUMN_NAME_A2_OPTION, i);
+                                break;
+                            case COLUMN_NAME_A2_OPTION_ORDER:
+                                columns.put(COLUMN_NAME_A2_OPTION_ORDER, i);
+                                break;
+                            case COLUMN_NAME_A2_OPTION_AVAILABLE:
+                                columns.put(COLUMN_NAME_A2_OPTION_AVAILABLE, i);
+                                break;
+                            case COLUMN_NAME_A3_DESCRIPTION:
+                                columns.put(COLUMN_NAME_A3_DESCRIPTION, i);
+                                break;
+                            case COLUMN_NAME_A3_ORDER:
+                                columns.put(COLUMN_NAME_A3_ORDER, i);
+                                break;
+                            case COLUMN_NAME_A3_MULTISELECT:
+                                columns.put(COLUMN_NAME_A3_MULTISELECT, i);
+                                break;
+                            case COLUMN_NAME_A3_OPTION:
+                                columns.put(COLUMN_NAME_A3_OPTION, i);
+                                break;
+                            case COLUMN_NAME_A3_OPTION_ORDER:
+                                columns.put(COLUMN_NAME_A3_OPTION_ORDER, i);
+                                break;
+                            case COLUMN_NAME_A3_OPTION_AVAILABLE:
+                                columns.put(COLUMN_NAME_A3_OPTION_AVAILABLE, i);
                                 break;
                             default:
                                 break;
@@ -59,13 +131,36 @@ public class MenuItemService extends BaseService {
                     }
                 }
             });
-            values.get(1).getValues().stream().forEach((row) -> {
-                MenuItem menuItem = new MenuItem();
-                menuItem.setName(getStringValue(row, columns.get(COLUMN_NAME_NAME)));
-                menuItem.setDescription(getStringValue(row, columns.get(COLUMN_NAME_DESCRIPTION)));
-                menuItem.setIndex(getIntValue(row, columns.get(COLUMN_NAME_INDEX)));
-                menuItems.add(menuItem);
-            });
+            MenuItem menuItem = new MenuItem();
+            for (List<Object> row : values.get(1).getValues()) {
+                //values.get(1).getValues().stream().forEach((row) -> {
+                if (columns.containsKey(COLUMN_NAME_NAME)
+                        && !getStringValue(row, columns.get(COLUMN_NAME_NAME)).isEmpty()) {
+                    menuItem = new MenuItem();
+                    menuItems.add(menuItem);
+                    menuItem.setName(getStringValue(row, columns.get(COLUMN_NAME_NAME)));
+                    menuItem.setDescription(getStringValue(row, columns.get(COLUMN_NAME_DESCRIPTION)));
+                    menuItem.setOrder(getIntValue(row, columns.get(COLUMN_NAME_ORDER)));
+                }
+                if (columns.containsKey(COLUMN_NAME_A1_DESCRIPTION)
+                        && !getStringValue(row, columns.get(COLUMN_NAME_A1_DESCRIPTION)).isEmpty()
+                        && menuItem.getAttributes().isEmpty()) {
+                    MenuItemAttribute menuItemAttribute = new MenuItemAttribute();
+                    menuItem.getAttributes().add(menuItemAttribute);
+                    menuItemAttribute.setDescription(getStringValue(row, columns.get(COLUMN_NAME_A1_DESCRIPTION)));
+                    menuItemAttribute.setOrder(getIntValue(row, columns.get(COLUMN_NAME_A1_ORDER)));
+                    menuItemAttribute.setMultiSelect(getBooleanValue(row, columns.get(COLUMN_NAME_A1_MULTISELECT)));
+                }
+                if (columns.containsKey(COLUMN_NAME_A1_OPTION)
+                        && !getStringValue(row, columns.get(COLUMN_NAME_A1_OPTION)).isEmpty()
+                        && !menuItem.getAttributes().isEmpty()) {
+                    MenuItemAttributeOption menuItemAttributeOption = new MenuItemAttributeOption();
+                    menuItem.getAttributes().get(0).getDetails().add(menuItemAttributeOption);
+                    menuItemAttributeOption.setDescription(getStringValue(row, columns.get(COLUMN_NAME_A1_OPTION)));
+                    menuItemAttributeOption.setOrder(getIntValue(row, columns.get(COLUMN_NAME_A1_OPTION_ORDER)));
+                    menuItemAttributeOption.setAvailable(getBooleanValue(row, columns.get(COLUMN_NAME_A1_OPTION_AVAILABLE)));
+                }
+            }
         }
         return menuItems;
     }

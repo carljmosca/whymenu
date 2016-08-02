@@ -49,4 +49,8 @@ public class MenuItemAttributeOption {
         this.order = order;
     }
     
+    @Override
+    public String toString() {
+        return description;
+    }
 }

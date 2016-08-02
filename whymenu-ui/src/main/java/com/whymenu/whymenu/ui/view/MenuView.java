@@ -5,30 +5,39 @@ import com.vaadin.addon.touchkit.ui.NavigationButton.NavigationButtonClickEvent;
 import com.vaadin.addon.touchkit.ui.NavigationButton.NavigationButtonClickListener;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
+import com.whymenu.data.Location;
+import com.whymenu.service.LocationService;
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 public class MenuView extends NavigationView {
 
-    private LocationView locationView;
-    
-    public MenuView() {
-        setCaption("Menu");
-        locationView = new LocationView();
-        final VerticalComponentGroup content = new VerticalComponentGroup();
-        NavigationButton button = new NavigationButton("Form");
-        button.addClickListener(new NavigationButtonClickListener() {
-            @Override
-            public void buttonClick(NavigationButtonClickEvent event) {
-//                getNavigationManager().navigateTo(new ItemView());
-                getNavigationManager().navigateTo(locationView);
-            }
-        });
-        content.addComponent(button);
-        setContent(content);
-    };
+    private Map<String, NavigationButton> buttons;
+    private final LocationService locationService;
+    private VerticalComponentGroup content;
 
-    public LocationView getLocationView() {
-        return locationView;
+    public MenuView() {
+        locationService = new LocationService();
+        init();
+    }
+
+    private void init() {
+        setCaption("Menu");
+        content = new VerticalComponentGroup();
+        buttons = new HashMap<>();
+        locationService.loadLocations().stream().filter((location) -> (!buttons.containsKey(location.getName()))).forEach((location) -> {
+            addLocation(location);
+        });
+        setContent(content);
     }
     
+    private void addLocation(Location location) {
+        NavigationButton button = new NavigationButton(location.getDescription());
+        button.addClickListener((NavigationButton.NavigationButtonClickEvent event) -> {
+            getNavigationManager().navigateTo(new ItemView(((NavigationButton) event.getSource()).getCaption()));
+        });
+        content.addComponent(button);
+        buttons.put(location.getName(), button);
+    }
 }

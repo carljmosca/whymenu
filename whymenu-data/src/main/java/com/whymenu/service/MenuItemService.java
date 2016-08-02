@@ -133,36 +133,56 @@ public class MenuItemService extends BaseService {
             });
             MenuItem menuItem = new MenuItem();
             for (List<Object> row : values.get(1).getValues()) {
-                //values.get(1).getValues().stream().forEach((row) -> {
                 if (columns.containsKey(COLUMN_NAME_NAME)
-                        && !getStringValue(row, columns.get(COLUMN_NAME_NAME)).isEmpty()) {
+                        && !getStringValue(row, COLUMN_NAME_NAME).isEmpty()) {
                     menuItem = new MenuItem();
                     menuItems.add(menuItem);
-                    menuItem.setName(getStringValue(row, columns.get(COLUMN_NAME_NAME)));
-                    menuItem.setDescription(getStringValue(row, columns.get(COLUMN_NAME_DESCRIPTION)));
-                    menuItem.setOrder(getIntValue(row, columns.get(COLUMN_NAME_ORDER)));
+                    menuItem.setName(getStringValue(row, COLUMN_NAME_NAME));
+                    menuItem.setDescription(getStringValue(row, COLUMN_NAME_DESCRIPTION));
+                    menuItem.setOrder(getIntValue(row, COLUMN_NAME_ORDER));
                 }
-                if (columns.containsKey(COLUMN_NAME_A1_DESCRIPTION)
-                        && !getStringValue(row, columns.get(COLUMN_NAME_A1_DESCRIPTION)).isEmpty()
-                        && menuItem.getAttributes().isEmpty()) {
-                    MenuItemAttribute menuItemAttribute = new MenuItemAttribute();
-                    menuItem.getAttributes().add(menuItemAttribute);
-                    menuItemAttribute.setDescription(getStringValue(row, columns.get(COLUMN_NAME_A1_DESCRIPTION)));
-                    menuItemAttribute.setOrder(getIntValue(row, columns.get(COLUMN_NAME_A1_ORDER)));
-                    menuItemAttribute.setMultiSelect(getBooleanValue(row, columns.get(COLUMN_NAME_A1_MULTISELECT)));
-                }
-                if (columns.containsKey(COLUMN_NAME_A1_OPTION)
-                        && !getStringValue(row, columns.get(COLUMN_NAME_A1_OPTION)).isEmpty()
-                        && !menuItem.getAttributes().isEmpty()) {
-                    MenuItemAttributeOption menuItemAttributeOption = new MenuItemAttributeOption();
-                    menuItem.getAttributes().get(0).getDetails().add(menuItemAttributeOption);
-                    menuItemAttributeOption.setDescription(getStringValue(row, columns.get(COLUMN_NAME_A1_OPTION)));
-                    menuItemAttributeOption.setOrder(getIntValue(row, columns.get(COLUMN_NAME_A1_OPTION_ORDER)));
-                    menuItemAttributeOption.setAvailable(getBooleanValue(row, columns.get(COLUMN_NAME_A1_OPTION_AVAILABLE)));
-                }
+                processAttribute(menuItem, row, COLUMN_NAME_A1_DESCRIPTION, COLUMN_NAME_A1_ORDER,
+                        COLUMN_NAME_A1_MULTISELECT, 1);
+                processAttribute(menuItem, row, COLUMN_NAME_A2_DESCRIPTION, COLUMN_NAME_A2_ORDER,
+                        COLUMN_NAME_A2_MULTISELECT, 2);
+                processAttribute(menuItem, row, COLUMN_NAME_A3_DESCRIPTION, COLUMN_NAME_A3_ORDER,
+                        COLUMN_NAME_A3_MULTISELECT, 3);
+                processAttributeOption(menuItem, row, COLUMN_NAME_A1_OPTION, COLUMN_NAME_A1_OPTION_ORDER, 
+                        COLUMN_NAME_A1_OPTION_AVAILABLE, 1);
+                processAttributeOption(menuItem, row, COLUMN_NAME_A2_OPTION, COLUMN_NAME_A2_OPTION_ORDER, 
+                        COLUMN_NAME_A2_OPTION_AVAILABLE, 2);
+                processAttributeOption(menuItem, row, COLUMN_NAME_A3_OPTION, COLUMN_NAME_A3_OPTION_ORDER, 
+                        COLUMN_NAME_A3_OPTION_AVAILABLE, 3);
             }
         }
         return menuItems;
+    }
+
+    private void processAttribute(MenuItem menuItem, List<Object> row, String description,
+            String order, String multiselect, int attribute) {
+        if (columns.containsKey(description)
+                && !getStringValue(row, description).isEmpty()
+                && menuItem.getAttributes().size() < attribute) {
+            MenuItemAttribute menuItemAttribute = new MenuItemAttribute();
+            menuItem.getAttributes().add(menuItemAttribute);
+            menuItemAttribute.setDescription(getStringValue(row, description));
+            menuItemAttribute.setOrder(getIntValue(row, order));
+            menuItemAttribute.setMultiSelect(getBooleanValue(row, multiselect));
+        }
+    }
+
+    private void processAttributeOption(MenuItem menuItem, List<Object> row, String option,
+            String order, String available, int attribute) {
+        if (columns.containsKey(option)
+                && !getStringValue(row, option).isEmpty()
+                && menuItem.getAttributes().size() >= attribute) {
+            MenuItemAttributeOption menuItemAttributeOption = new MenuItemAttributeOption();
+            menuItem.getAttributes().get(attribute - 1).getDetails().add(menuItemAttributeOption);
+            menuItemAttributeOption.setDescription(getStringValue(row, option));
+            menuItemAttributeOption.setOrder(getIntValue(row, order));
+            menuItemAttributeOption.setAvailable(getBooleanValue(row, available));
+        }
+
     }
 
 }

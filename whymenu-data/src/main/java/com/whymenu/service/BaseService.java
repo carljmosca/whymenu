@@ -79,6 +79,14 @@ public class BaseService {
                 .createScoped(SCOPES);
     }
 
+    protected String getStringValue(List<Object> row, String columnKey) {
+        if (columns.containsKey(columnKey)) {
+            int index = columns.get(columnKey);
+            return getStringValue(row, index);
+        }
+        return "";
+    }
+
     protected String getStringValue(List<Object> row, int index) {
         String result = "";
         if (row.size() >= (index + 1)) {
@@ -89,8 +97,8 @@ public class BaseService {
         return result;
     }
 
-    protected Integer getIntValue(List<Object> row, int index) {
-        String value = getStringValue(row, index);
+    protected Integer getIntValue(List<Object> row, String columnKey) {
+        String value = getStringValue(row, columnKey);
         Integer result = 0;
         try {
             result = Integer.parseInt(value);
@@ -100,9 +108,9 @@ public class BaseService {
         return result;
     }
 
-    protected boolean getBooleanValue(List<Object> row, int index) {
+    protected boolean getBooleanValue(List<Object> row, String columnKey) {
         boolean result = true;
-        String value = getStringValue(row, index).toLowerCase();
+        String value = getStringValue(row, columnKey).toLowerCase();
         result = !"false".equals(value) && !"no".equals(value) && !"0".equals(value);
         return result;
     }

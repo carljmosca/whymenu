@@ -74,13 +74,13 @@ public class LocationService extends BaseService {
             });
             values.get(1).getValues().stream().forEach((row) -> {
                 Location location = new Location();
-                location.setName(getStringValue(row, columns.get(COLUMN_NAME_NAME)));
-                location.setDescription(getStringValue(row, columns.get(COLUMN_NAME_DESCRIPTION)));
-                location.setAddress(getStringValue(row, columns.get(COLUMN_NAME_ADDRESS)));
-                location.setCity(getStringValue(row, columns.get(COLUMN_NAME_CITY)));
-                location.setState(getStringValue(row, columns.get(COLUMN_NAME_STATE)));
-                location.setPostalCode(getStringValue(row, columns.get(COLUMN_NAME_ZIP)));
-                location.setHours(getStringValue(row, columns.get(COLUMN_NAME_HOURS)));
+                location.setName(getStringValue(row, COLUMN_NAME_NAME));
+                location.setDescription(getStringValue(row, COLUMN_NAME_DESCRIPTION));
+                location.setAddress(getStringValue(row, COLUMN_NAME_ADDRESS));
+                location.setCity(getStringValue(row, COLUMN_NAME_CITY));
+                location.setState(getStringValue(row, COLUMN_NAME_STATE));
+                location.setPostalCode(getStringValue(row, COLUMN_NAME_ZIP));
+                location.setHours(getStringValue(row, COLUMN_NAME_HOURS));
                 locations.add(location);
             });
         }

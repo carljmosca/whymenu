@@ -33,7 +33,8 @@ public class MenuView extends NavigationView {
     }
     
     private void addLocation(Location location) {
-        NavigationButton button = new NavigationButton(location.getDescription());
+        NavigationButton button = new NavigationButton(location.getName());
+        button.setDescription(location.getDescription());
         button.addClickListener((NavigationButton.NavigationButtonClickEvent event) -> {
             getNavigationManager().navigateTo(new MenuItemView(((NavigationButton) event.getSource()).getCaption()));
         });

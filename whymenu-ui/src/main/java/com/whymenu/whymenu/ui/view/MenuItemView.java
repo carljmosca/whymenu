@@ -14,6 +14,7 @@ public class MenuItemView extends NavigationView {
 
     private final MenuItemService menuItemService;
     private final String location;
+    private MenuItemAttributesView menuItemAttributesView;
 
     public MenuItemView(String location) {
         this.location = location;
@@ -27,8 +28,12 @@ public class MenuItemView extends NavigationView {
 
         menuItemService.loadMenuItems(location).stream().map((menuItem) -> {
             NavigationButton button = new NavigationButton(menuItem.getName());
+            if (menuItemAttributesView == null || 
+                    !menuItemAttributesView.getMenuItem().getName().equals(menuItem.getName())) {
+                menuItemAttributesView = new MenuItemAttributesView(menuItem);
+            }
             button.addClickListener((NavigationButton.NavigationButtonClickEvent event) -> {
-                getNavigationManager().navigateTo(new MenuItemAttributesView(menuItem));
+                getNavigationManager().navigateTo(menuItemAttributesView);
             });
             return button;
         }).forEach((button) -> {

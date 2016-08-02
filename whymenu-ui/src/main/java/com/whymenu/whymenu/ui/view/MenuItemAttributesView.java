@@ -7,7 +7,9 @@ package com.whymenu.whymenu.ui.view;
 
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.ListSelect;
+import com.vaadin.ui.Notification;
 import com.whymenu.data.MenuItem;
 import com.whymenu.data.MenuItemAttribute;
 
@@ -33,7 +35,15 @@ public class MenuItemAttributesView extends NavigationView {
             listSelect.setMultiSelect(menuItemAttribute.isMultiSelect());
             content.addComponent(listSelect);
         }
+        final Button submitButton = new Button("Add to order");
+        submitButton.addClickListener((Button.ClickEvent event) -> {
+            Notification.show("Thanks!");
+        });
         setContent(content);
+    }
+
+    public MenuItem getMenuItem() {
+        return menuItem;
     }
 
 }

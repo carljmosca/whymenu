@@ -7,7 +7,7 @@ target/
 *.gz
 *.txt
 *.xml
-*.cache.js
+*cache.js
 *.manifest
 /.project
 /.settings/

@@ -33,23 +33,19 @@ public class LocationView extends NavigationView {
         locationService = new LocationService();
         for (Location location : locationService.loadLocations()) {
             if (!buttons.containsKey(location.getName())) {
-                addLocation(location.getName(), location);
+                addLocation(location);
             }
         }
         setContent(content);
     }
 
-    private void addLocation(String key, Location location) {
+    private void addLocation(Location location) {
         NavigationButton button = new NavigationButton(location.getDescription());
         button.addClickListener((NavigationButton.NavigationButtonClickEvent event) -> {
-            getNavigationManager().navigateTo(new ItemView());
+            getNavigationManager().navigateTo(new ItemView("test"));
         });
         content.addComponent(button);
-        buttons.put(key, button);
+        buttons.put(location.getName(), button);
     }
 
-    private void removeLocation(String key) {
-        content.removeComponent(buttons.get(key));
-        buttons.remove(key);
-    }
 }

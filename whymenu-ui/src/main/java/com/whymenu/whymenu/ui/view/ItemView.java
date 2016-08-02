@@ -9,11 +9,17 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
+import com.whymenu.service.MenuItemService;
 
 @SuppressWarnings("serial")
 public class ItemView extends NavigationView {
 
-    public ItemView() {
+    private final MenuItemService menuItemService;
+    private final String location;
+    
+    public ItemView(String location) {
+        this.location = location;
+        menuItemService = new MenuItemService();
         init();
     }
     

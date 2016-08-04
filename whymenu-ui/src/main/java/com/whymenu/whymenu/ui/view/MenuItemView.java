@@ -7,17 +7,20 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Notification;
+import com.whymenu.data.MenuItem;
 import com.whymenu.service.MenuItemService;
+import java.util.HashMap;
 
 @SuppressWarnings("serial")
 public class MenuItemView extends NavigationView {
 
     private final MenuItemService menuItemService;
     private final String location;
-    private MenuItemAttributesView menuItemAttributesView;
+    private final HashMap<String, MenuItemAttributesView> menuItemAttributesViews;
 
     public MenuItemView(String location) {
         this.location = location;
+        menuItemAttributesViews = new HashMap<>();
         menuItemService = new MenuItemService();
         init();
     }
@@ -26,19 +29,28 @@ public class MenuItemView extends NavigationView {
         setCaption("Item");
         final VerticalComponentGroup content = new VerticalComponentGroup();
 
-        menuItemService.loadMenuItems(location).stream().map((menuItem) -> {
+        for (MenuItem menuItem : menuItemService.loadMenuItems(location)) {
             NavigationButton button = new NavigationButton(menuItem.getName());
-            if (menuItemAttributesView == null || 
-                    !menuItemAttributesView.getMenuItem().getName().equals(menuItem.getName())) {
-                menuItemAttributesView = new MenuItemAttributesView(menuItem);
-            }
+            menuItemAttributesViews.put(menuItem.getName(), new MenuItemAttributesView(menuItem));
             button.addClickListener((NavigationButton.NavigationButtonClickEvent event) -> {
-                getNavigationManager().navigateTo(menuItemAttributesView);
+                getNavigationManager().navigateTo(menuItemAttributesViews.get(button.getCaption()));
             });
-            return button;
-        }).forEach((button) -> {
             content.addComponent(button);
-        });
+        }
+        
+//        menuItemService.loadMenuItems(location).stream().map((menuItem) -> {
+//            NavigationButton button = new NavigationButton(menuItem.getName());
+//            if (menuItemAttributesView == null || 
+//                    !menuItemAttributesView.getMenuItem().getName().equals(menuItem.getName())) {
+//                menuItemAttributesView = new MenuItemAttributesView(menuItem);
+//            }
+//            button.addClickListener((NavigationButton.NavigationButtonClickEvent event) -> {
+//                getNavigationManager().navigateTo(menuItemAttributesView);
+//            });
+//            return button;
+//        }).forEach((button) -> {
+//            content.addComponent(button);
+//        });
 
 //        final TextField nameField = new TextField("Name");
 //        nameField.setInputPrompt("Enter your name...");

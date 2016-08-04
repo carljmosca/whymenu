@@ -16,7 +16,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.UI;
-import com.whymenu.service.LocationService;
 
 /**
  * The UI's "main" class

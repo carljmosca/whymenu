@@ -44,7 +44,11 @@ public class MenuItemAttributesView extends NavigationView implements Component.
             ListSelect listSelect = new ListSelect(menuItemAttribute.getDescription());
             listSelect.addListener(this);
             listSelect.setImmediate(true);
-            listSelect.addItems(menuItemAttribute.getDetails());
+            for (MenuItemAttributeOption option : menuItemAttribute.getDetails()) {
+                if (option.isAvailable()) {
+                    listSelect.addItem(option.getDescription());
+                }
+            }
             listSelect.setMultiSelect(menuItemAttribute.isMultiSelect());
             content.addComponent(listSelect);
             listSelects.add(listSelect);
@@ -54,6 +58,7 @@ public class MenuItemAttributesView extends NavigationView implements Component.
         final Button submitButton = new Button("Add to order");
         submitButton.addClickListener((Button.ClickEvent event) -> {
             complete = true;
+            clearSelections();
             getNavigationManager().navigateBack();
         });
         setContent(new CssLayout(content, label, submitButton));
@@ -100,14 +105,6 @@ public class MenuItemAttributesView extends NavigationView implements Component.
         return complete;
     }
 
-    @Override
-    protected void onBecomingVisible() {
-        super.onBecomingVisible();
-        if (complete) {
-            clearSelections();
-        }
-    }
-    
     private void clearSelections() {
         for (ListSelect listSelect : listSelects) {
             listSelect.setValue(null);

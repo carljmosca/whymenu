@@ -87,17 +87,20 @@ public class MenuItemAttributesView extends NavigationView implements Component.
                     MenuItemAttributeOption option = (MenuItemAttributeOption) object;
                     orderItemDescription.append(option.getDescription()).append(" ");
                 }
-            }
-        });
-
-        listSelects.stream().filter((listSelect) -> (listSelect.getValue() instanceof MenuItemAttributeOption[])).forEach((listSelect) -> {
-            for (MenuItemAttributeOption menuItemAttributeOption : (MenuItemAttributeOption[]) listSelect.getValue()) {
-                if (menuItemAttributeOption.getDescription() != null
-                        && !menuItemAttributeOption.getDescription().trim().isEmpty()) {
-                    orderItemDescription.append(menuItemAttributeOption.getDescription()).append(" ");
+                if (object instanceof String) {
+                    orderItemDescription.append((String)object).append(" ");
                 }
             }
         });
+
+//        listSelects.stream().filter((listSelect) -> (listSelect.getValue() instanceof MenuItemAttributeOption[])).forEach((listSelect) -> {
+//            for (MenuItemAttributeOption menuItemAttributeOption : (MenuItemAttributeOption[]) listSelect.getValue()) {
+//                if (menuItemAttributeOption.getDescription() != null
+//                        && !menuItemAttributeOption.getDescription().trim().isEmpty()) {
+//                    orderItemDescription.append(menuItemAttributeOption.getDescription()).append(" ");
+//                }
+//            }
+//        });
         label.setCaption(orderItemDescription.toString().trim());
     }
 

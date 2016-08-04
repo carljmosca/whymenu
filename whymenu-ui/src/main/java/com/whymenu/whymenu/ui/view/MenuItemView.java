@@ -28,8 +28,7 @@ public class MenuItemView extends NavigationView {
 
         menuItemService.loadMenuItems(location).stream().map((menuItem) -> {
             NavigationButton button = new NavigationButton(menuItem.getName());
-            if (menuItemAttributesView == null || 
-                    !menuItemAttributesView.getMenuItem().getName().equals(menuItem.getName())) {
+            if (menuItemAttributesView == null || menuItemAttributesView.isComplete()) {
                 menuItemAttributesView = new MenuItemAttributesView(menuItem);
             }
             button.addClickListener((NavigationButton.NavigationButtonClickEvent event) -> {

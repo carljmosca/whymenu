@@ -12,7 +12,6 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.ListSelect;
-import com.vaadin.ui.Notification;
 import com.whymenu.data.MenuItem;
 import com.whymenu.data.MenuItemAttribute;
 import com.whymenu.data.MenuItemAttributeOption;
@@ -99,6 +98,20 @@ public class MenuItemAttributesView extends NavigationView implements Component.
 
     public boolean isComplete() {
         return complete;
+    }
+
+    @Override
+    protected void onBecomingVisible() {
+        super.onBecomingVisible();
+        if (complete) {
+            clearSelections();
+        }
+    }
+    
+    private void clearSelections() {
+        for (ListSelect listSelect : listSelects) {
+            listSelect.setValue(null);
+        }
     }
 
 }

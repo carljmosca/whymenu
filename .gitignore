@@ -6,7 +6,8 @@ target/
 *.tar
 *.gz
 *.txt
-*.xml
+nb-configuration.xml
+nbactions.xml
 *cache.js
 *.manifest
 /.project

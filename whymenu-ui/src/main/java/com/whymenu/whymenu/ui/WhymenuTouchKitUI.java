@@ -48,9 +48,9 @@ public class WhymenuTouchKitUI extends UI {
         Tab tab;
         tab = tabBarView.addTab(navigationManager);
         tab.setIcon(FontAwesome.TASKS);
-        tab = tabBarView.addTab(new Label("Cart"), "Cart");
+        tab = tabBarView.addTab(new Label("Order"), "Order");
         tab.setIcon(FontAwesome.PENCIL_SQUARE);
-        tab = tabBarView.addTab(new Label("Tab 3"), "Tab 3");
+        tab = tabBarView.addTab(new Label("About"), "About");
         tab.setIcon(FontAwesome.DOWNLOAD);
         setContent(tabBarView);
 

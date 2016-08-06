@@ -177,10 +177,12 @@ public class MenuItemService extends BaseService {
                 && !getStringValue(row, option).isEmpty()
                 && menuItem.getAttributes().size() >= attribute) {
             MenuItemAttributeOption menuItemAttributeOption = new MenuItemAttributeOption();
-            menuItem.getAttributes().get(attribute - 1).getDetails().add(menuItemAttributeOption);
+            MenuItemAttribute menuItemAttribute = menuItem.getAttributes().get(attribute - 1);
+            menuItemAttribute.getDetails().add(menuItemAttributeOption);
             menuItemAttributeOption.setDescription(getStringValue(row, option));
             menuItemAttributeOption.setOrder(getIntValue(row, order));
             menuItemAttributeOption.setAvailable(getBooleanValue(row, available));
+            menuItemAttributeOption.setAttributeDescription(menuItemAttribute.getDescription());
         }
 
     }

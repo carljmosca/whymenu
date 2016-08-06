@@ -6,6 +6,7 @@
 package com.whymenu.data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +16,24 @@ import java.util.List;
  */
 public class MenuItem implements Serializable {
     
+    private String itemNumber;
     private String name;
     private String description;
     private int order;
     private List<MenuItemAttribute> attributes;
+    private BigDecimal price;
+    private String taxRateCode;
     
     public MenuItem() {
         attributes = new ArrayList<>();
+    }
+
+    public String getItemNumber() {
+        return itemNumber;
+    }
+
+    public void setItemNumber(String itemNumber) {
+        this.itemNumber = itemNumber;
     }
 
     public String getName() {
@@ -54,6 +66,22 @@ public class MenuItem implements Serializable {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getTaxRateCode() {
+        return taxRateCode;
+    }
+
+    public void setTaxRateCode(String taxRateCode) {
+        this.taxRateCode = taxRateCode;
     }
     
 }

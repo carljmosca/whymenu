@@ -5,6 +5,7 @@
  */
 package com.whymenu.data;
 
+import java.math.BigDecimal;
 /**
  *
  * @author moscac
@@ -12,17 +13,20 @@ package com.whymenu.data;
 public class MenuItemAttributeOption {
   
     private int order;
+    private BigDecimal price;
     private String description;
     private boolean available;
+    private String attributeDescription;
     
     public MenuItemAttributeOption() {
         
     }
 
-    public MenuItemAttributeOption(int index, String description, boolean available) {
+    public MenuItemAttributeOption(int index, String description, boolean available, BigDecimal price) {
         this.order = index;
         this.description = description;
         this.available = available;
+        this.price = price;
     }
     
     public String getDescription() {
@@ -47,6 +51,22 @@ public class MenuItemAttributeOption {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getAttributeDescription() {
+        return attributeDescription;
+    }
+
+    public void setAttributeDescription(String attributeDescription) {
+        this.attributeDescription = attributeDescription;
     }
     
     @Override

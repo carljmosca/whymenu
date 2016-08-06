@@ -116,7 +116,7 @@
                 <version>2.2</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <outputDirectory>../target</outputDirectory>                        
+<!--                    <outputDirectory>../target</outputDirectory>                        -->
                 </configuration>
             </plugin>
 

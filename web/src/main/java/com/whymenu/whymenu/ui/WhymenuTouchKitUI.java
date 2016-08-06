@@ -16,6 +16,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.UI;
+import com.whymenu.whymenu.ui.view.CustomerOrderView;
 
 /**
  * The UI's "main" class
@@ -48,7 +49,7 @@ public class WhymenuTouchKitUI extends UI {
         Tab tab;
         tab = tabBarView.addTab(navigationManager);
         tab.setIcon(FontAwesome.TASKS);
-        tab = tabBarView.addTab(new Label("Order"), "Order");
+        tab = tabBarView.addTab(new CustomerOrderView(), "Order");
         tab.setIcon(FontAwesome.PENCIL_SQUARE);
         tab = tabBarView.addTab(new Label("About"), "About");
         tab.setIcon(FontAwesome.DOWNLOAD);

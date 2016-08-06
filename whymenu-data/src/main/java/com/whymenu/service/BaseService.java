@@ -14,6 +14,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
@@ -31,6 +32,7 @@ import java.util.logging.Logger;
 public class BaseService {
 
     public static final String WHYMENU_SPREADSHEET_ID = "WHYMENU_SPREADSHEET_ID";
+    public static final String WHYMENU_SERVICE_ACCOUNT = "WHYMENU_SERVICE_ACCOUNT";
     protected static final List<String> SCOPES = Arrays.asList(SheetsScopes.SPREADSHEETS);
     protected Credential credential;
     protected Sheets service;
@@ -73,9 +75,11 @@ public class BaseService {
     }
 
     private void authorizeWithServiceAccount() throws IOException {
-        InputStream in
-                = BaseService.class.getResourceAsStream("/service_account.json");
-        credential = GoogleCredential.fromStream(in)
+        String whymenuServiceAccount = System.getenv(WHYMENU_SERVICE_ACCOUNT);
+        InputStream is = new ByteArrayInputStream(whymenuServiceAccount.getBytes());
+        //InputStream in = BaseService.class.getResource AsStream(is);
+        //        = BaseService.class.getResourceAsStream("/service_account.json");
+        credential = GoogleCredential.fromStream(is)
                 .createScoped(SCOPES);
     }
 

@@ -38,7 +38,7 @@ public class MenuItemAttributesView extends NavigationView implements Component.
         this.menuItem = menuItem;
         lsAttributes = new ArrayList<>();
         lblDescription = new Label();
-        nfQuantity = new NumberField("Quantity");
+        nfQuantity = new NumberField();
         customerOrderLine = new CustomerOrderLine();
         init();
     }
@@ -63,8 +63,10 @@ public class MenuItemAttributesView extends NavigationView implements Component.
             content.addComponent(listSelect);
             lsAttributes.add(listSelect);
         }
+        nfQuantity.setWidth("50px");
         nfQuantity.setImmediate(true);
         nfQuantity.setValue("1");
+        nfQuantity.setInputPrompt("Quantity");
         nfQuantity.addListener((Event event) -> {
             try {
                 int quantity = Integer.parseInt(nfQuantity.getValue());

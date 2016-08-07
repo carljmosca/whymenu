@@ -14,6 +14,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
+import com.whymenu.util.Utility;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,11 +50,7 @@ public class BaseService {
         try {
             authorizeWithServiceAccount();
             service = getSheetsService();
-            if (System.getenv(WHYMENU_SPREADSHEET_ID) != null) {
-                spreadsheetId = System.getenv(WHYMENU_SPREADSHEET_ID);
-            } else if (System.getProperty(WHYMENU_SPREADSHEET_ID) != null) {
-                spreadsheetId = System.getProperty(WHYMENU_SPREADSHEET_ID);
-            }
+            spreadsheetId = Utility.getEnvironmentOrPropertyVariables(WHYMENU_SPREADSHEET_ID);
             columns = new HashMap<>();
             ranges = new ArrayList<>();
         } catch (IOException | GeneralSecurityException ex) {
@@ -75,7 +72,7 @@ public class BaseService {
     }
 
     private void authorizeWithServiceAccount() throws IOException {
-        String whymenuServiceAccount = System.getenv(WHYMENU_SERVICE_ACCOUNT);
+        String whymenuServiceAccount = Utility.getEnvironmentOrPropertyVariables(WHYMENU_SERVICE_ACCOUNT);
         InputStream is = new ByteArrayInputStream(whymenuServiceAccount.getBytes());
         //InputStream in = BaseService.class.getResource AsStream(is);
         //        = BaseService.class.getResourceAsStream("/service_account.json");

@@ -1,0 +1,27 @@
+{
+  "name": "whymenu",
+  "description": "whymenu",
+  "scripts": {
+  },
+  "env": {
+    "WHYMENU_SERVICE_ACCOUNT": {
+      "required": true
+    },
+    "WHYMENU_SPREADSHEET_ID": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/java"
+    }
+  ]
+}

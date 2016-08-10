@@ -23,7 +23,6 @@ import com.whymenu.whymenu.ui.view.CustomerOrderView;
 /**
  * The UI's "main" class
  */
-@SuppressWarnings("serial")
 @Widgetset("com.whymenu.whymenu.ui.gwt.whymenuWidgetSet")
 @Theme("whymenu")
 // Cache static application files so as the application can be started

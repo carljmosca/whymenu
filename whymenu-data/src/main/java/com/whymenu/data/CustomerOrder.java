@@ -5,6 +5,7 @@
  */
 package com.whymenu.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +13,11 @@ import java.util.List;
  *
  * @author moscac
  */
-public class CustomerOrder {
+public class CustomerOrder implements Serializable {
     
     private String name;
     private String email;
-    private final List<CustomerOrderLine> customerOrderLines;
+    private List<CustomerOrderLine> customerOrderLines;
     
     public CustomerOrder() {
         customerOrderLines = new ArrayList<>();
@@ -40,6 +41,10 @@ public class CustomerOrder {
 
     public List<CustomerOrderLine> getCustomerOrderLines() {
         return customerOrderLines;
+    }
+
+    public void setCustomerOrderLines(List<CustomerOrderLine> customerOrderLines) {
+        this.customerOrderLines = customerOrderLines;
     }
     
 }

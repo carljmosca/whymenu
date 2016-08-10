@@ -8,6 +8,7 @@ package com.whymenu.service;
 import com.google.api.services.sheets.v4.model.BatchGetValuesResponse;
 import com.whymenu.data.Location;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author moscac
  */
-public class LocationService extends BaseService {
+public class LocationService extends BaseService implements Serializable {
 
     private final String SHEET_NAME = "Locations";
     private final String COLUMN_NAME_NAME = "Name";

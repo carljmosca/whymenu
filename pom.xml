@@ -11,7 +11,7 @@
     <name>whymenu</name>
 
     <modules>
-        <module>web</module>
+        <module>whymenu-ui</module>
         <module>whymenu-data</module>
     </modules>
 

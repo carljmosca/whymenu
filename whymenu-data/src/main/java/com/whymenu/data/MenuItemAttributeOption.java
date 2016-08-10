@@ -5,21 +5,33 @@
  */
 package com.whymenu.data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.UUID;
+
 /**
  *
  * @author moscac
  */
-public class MenuItemAttributeOption {
-  
+public class MenuItemAttributeOption implements Serializable {
+
     private int order;
+    private UUID uuid;
     private BigDecimal price;
     private String description;
     private boolean available;
     private String attributeDescription;
-    
+
     public MenuItemAttributeOption() {
-        
+        uuid = UUID.randomUUID();
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public MenuItemAttributeOption(int index, String description, boolean available, BigDecimal price) {
@@ -28,7 +40,7 @@ public class MenuItemAttributeOption {
         this.available = available;
         this.price = price;
     }
-    
+
     public String getDescription() {
         return description;
     }
@@ -67,10 +79,10 @@ public class MenuItemAttributeOption {
 
     public void setAttributeDescription(String attributeDescription) {
         this.attributeDescription = attributeDescription;
-    }
-    
+    }    
+
     @Override
     public String toString() {
-        return description;
+        return "MenuItemAttributeOption{" + "order=" + order + ", uuid=" + uuid + ", price=" + price + ", description=" + description + ", available=" + available + ", attributeDescription=" + attributeDescription + '}';
     }
 }

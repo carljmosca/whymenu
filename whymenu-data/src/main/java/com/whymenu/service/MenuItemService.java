@@ -10,6 +10,7 @@ import com.whymenu.data.MenuItem;
 import com.whymenu.data.MenuItemAttribute;
 import com.whymenu.data.MenuItemAttributeOption;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * @author moscac
  */
-public class MenuItemService extends BaseService {
+public class MenuItemService extends BaseService implements Serializable {
 
     private final String COLUMN_NAME_NAME = "Name";
     private final String COLUMN_NAME_DESCRIPTION = "Description";

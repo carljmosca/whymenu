@@ -16,8 +16,11 @@ import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import com.whymenu.util.Utility;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +33,7 @@ import java.util.logging.Logger;
  *
  * @author moscac
  */
-public class BaseService {
+public class BaseService implements Serializable {
 
     public static final String WHYMENU_SPREADSHEET_ID = "WHYMENU_SPREADSHEET_ID";
     public static final String WHYMENU_SERVICE_ACCOUNT = "WHYMENU_SERVICE_ACCOUNT";
@@ -47,12 +50,17 @@ public class BaseService {
     private static HttpTransport HTTP_TRANSPORT;
 
     public BaseService() {
+        init();
+    }
+
+    private void init() {
         try {
             authorizeWithServiceAccount();
             service = getSheetsService();
             spreadsheetId = Utility.getEnvironmentOrPropertyVariables(WHYMENU_SPREADSHEET_ID);
             columns = new HashMap<>();
             ranges = new ArrayList<>();
+
         } catch (IOException | GeneralSecurityException ex) {
             Logger.getLogger(BaseService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -73,11 +81,13 @@ public class BaseService {
 
     private void authorizeWithServiceAccount() throws IOException {
         String whymenuServiceAccount = Utility.getEnvironmentOrPropertyVariables(WHYMENU_SERVICE_ACCOUNT);
-        InputStream is = new ByteArrayInputStream(whymenuServiceAccount.getBytes());
-        //InputStream in = BaseService.class.getResource AsStream(is);
-        //        = BaseService.class.getResourceAsStream("/service_account.json");
-        credential = GoogleCredential.fromStream(is)
-                .createScoped(SCOPES);
+        InputStream is;
+        if (!whymenuServiceAccount.isEmpty()) {
+            is = new ByteArrayInputStream(whymenuServiceAccount.getBytes());
+        } else {
+            is = new FileInputStream(new File("/usr/local/whymenu/whymenu_service_account.json"));
+        }
+        credential = GoogleCredential.fromStream(is).createScoped(SCOPES);
     }
 
     protected String getStringValue(List<Object> row, String columnKey) {
@@ -110,7 +120,7 @@ public class BaseService {
     }
 
     protected boolean getBooleanValue(List<Object> row, String columnKey) {
-        boolean result = true;
+        boolean result;
         String value = getStringValue(row, columnKey).toLowerCase();
         result = !"false".equals(value) && !"no".equals(value) && !"0".equals(value);
         return result;

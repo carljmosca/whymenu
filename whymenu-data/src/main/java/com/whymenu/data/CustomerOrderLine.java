@@ -6,27 +6,39 @@
 package com.whymenu.data;
 
 import com.whymenu.util.Utility;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  *
  * @author moscac
  */
-public class CustomerOrderLine {
+public class CustomerOrderLine implements Serializable {
 
+    private UUID uuid;
     private int quantity;
     private String itemNumber;
     private String name;
     private BigDecimal price;
     private String taxRateCode;
-    private final List<MenuItemAttributeOption> options;
+    private List<MenuItemAttributeOption> options;
 
     public CustomerOrderLine() {
         options = new ArrayList<>();
         quantity = 1;
+        uuid = UUID.randomUUID();
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public int getQuantity() {
@@ -71,6 +83,10 @@ public class CustomerOrderLine {
 
     public List<MenuItemAttributeOption> getOptions() {
         return options;
+    }
+
+    public void setOptions(List<MenuItemAttributeOption> options) {
+        this.options = options;
     }
 
     public String getDescription() {

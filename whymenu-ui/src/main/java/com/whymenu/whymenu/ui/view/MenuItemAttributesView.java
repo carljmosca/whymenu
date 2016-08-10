@@ -111,6 +111,8 @@ public class MenuItemAttributesView extends NavigationView implements Component.
             }
         }
         lblDescription.setCaption(customerOrderLine.getDescription());
+        CustomerOrder customerOrder = SessionManager.getCustomerOrder();
+        SessionManager.saveCustomerOrder(customerOrder);
     }
 
     public boolean isComplete() {

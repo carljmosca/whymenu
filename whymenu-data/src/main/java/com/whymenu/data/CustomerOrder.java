@@ -47,4 +47,8 @@ public class CustomerOrder implements Serializable {
         return customerOrderLines;
     }
 
+    public void setCustomerOrderLines(ArrayList<CustomerOrderLine> customerOrderLines) {
+        this.customerOrderLines = customerOrderLines;
+    }
+
 }

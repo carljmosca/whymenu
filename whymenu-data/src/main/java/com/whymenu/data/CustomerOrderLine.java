@@ -89,6 +89,10 @@ public class CustomerOrderLine implements Serializable {
         return options;
     }
 
+    public void setOptions(ArrayList<MenuItemAttributeOption> options) {
+        this.options = options;
+    }
+
     public String getDescription() {
         StringBuilder orderItemDescription = new StringBuilder();
         orderItemDescription.append(name).append(Utility.CHARACTER_SPACE);

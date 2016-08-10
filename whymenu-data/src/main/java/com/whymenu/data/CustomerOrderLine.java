@@ -19,16 +19,17 @@ import java.util.UUID;
  */
 public class CustomerOrderLine implements Serializable {
 
+    private static final long serialVersionUID = 752093268978563281L;
+
     private UUID uuid;
     private int quantity;
     private String itemNumber;
     private String name;
     private BigDecimal price;
     private String taxRateCode;
-    private List<MenuItemAttributeOption> options;
+    private ArrayList<MenuItemAttributeOption> options;
 
     public CustomerOrderLine() {
-        options = new ArrayList<>();
         quantity = 1;
         uuid = UUID.randomUUID();
     }
@@ -82,11 +83,10 @@ public class CustomerOrderLine implements Serializable {
     }
 
     public List<MenuItemAttributeOption> getOptions() {
+        if (options == null) {
+            options = new ArrayList<>();
+        }
         return options;
-    }
-
-    public void setOptions(List<MenuItemAttributeOption> options) {
-        this.options = options;
     }
 
     public String getDescription() {

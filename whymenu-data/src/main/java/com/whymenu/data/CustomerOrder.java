@@ -14,13 +14,14 @@ import java.util.List;
  * @author moscac
  */
 public class CustomerOrder implements Serializable {
-    
+
+    private static final long serialVersionUID = -5110862787659609068L;
+
     private String name;
     private String email;
-    private List<CustomerOrderLine> customerOrderLines;
-    
+    private ArrayList<CustomerOrderLine> customerOrderLines;
+
     public CustomerOrder() {
-        customerOrderLines = new ArrayList<>();
     }
 
     public String getName() {
@@ -40,11 +41,10 @@ public class CustomerOrder implements Serializable {
     }
 
     public List<CustomerOrderLine> getCustomerOrderLines() {
+        if (customerOrderLines == null) {
+            customerOrderLines = new ArrayList<>();
+        }
         return customerOrderLines;
     }
 
-    public void setCustomerOrderLines(List<CustomerOrderLine> customerOrderLines) {
-        this.customerOrderLines = customerOrderLines;
-    }
-    
 }

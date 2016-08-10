@@ -15,6 +15,8 @@ import java.util.UUID;
  */
 public class MenuItemAttributeOption implements Serializable {
 
+    private static final long serialVersionUID = -4948231786846367288L;
+
     private int order;
     private UUID uuid;
     private BigDecimal price;

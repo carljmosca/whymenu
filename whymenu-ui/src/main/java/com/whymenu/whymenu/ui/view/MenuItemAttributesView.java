@@ -14,12 +14,11 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.ListSelect;
-import com.whymenu.data.CustomerOrder;
 import com.whymenu.data.CustomerOrderLine;
 import com.whymenu.data.MenuItem;
 import com.whymenu.data.MenuItemAttribute;
 import com.whymenu.data.MenuItemAttributeOption;
-import com.whymenu.whymenu.util.SessionManager;
+import com.whymenu.whymenu.ui.WhymenuUI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,15 +29,20 @@ import java.util.List;
  */
 public class MenuItemAttributesView extends NavigationView implements Component.Listener {
 
-    private final MenuItem menuItem;
-    private final List<ListSelect> lsAttributes;
-    private final NumberField nfQuantity;
-    private final Label lblDescription;
+    private MenuItem menuItem;
+    private List<ListSelect> lsAttributes;
+    private NumberField nfQuantity;
+    private Label lblDescription;
     private boolean complete;
-    private final CustomerOrderLine customerOrderLine;
+    private CustomerOrderLine customerOrderLine;
 
     public MenuItemAttributesView(MenuItem menuItem) {
         this.menuItem = menuItem;
+    }
+
+    @Override
+    public void attach() {
+        complete = false;
         lsAttributes = new ArrayList<>();
         lblDescription = new Label();
         nfQuantity = new NumberField();
@@ -84,9 +88,7 @@ public class MenuItemAttributesView extends NavigationView implements Component.
         lblDescription.setHeightUndefined();
         final Button submitButton = new Button("Add to order");
         submitButton.addClickListener((Button.ClickEvent event) -> {
-            CustomerOrder customerOrder = SessionManager.getCustomerOrder();
-            customerOrder.getCustomerOrderLines().add(customerOrderLine);
-            SessionManager.saveCustomerOrder(customerOrder);
+            WhymenuUI.getApp().getCustomerOrder().getCustomerOrderLines().add(customerOrderLine);
             complete = true;
             clearSelections();
             getNavigationManager().navigateBack();
@@ -100,6 +102,9 @@ public class MenuItemAttributesView extends NavigationView implements Component.
 
     @Override
     public void componentEvent(Event event) {
+        if (complete) {
+            return;
+        }
         customerOrderLine.getOptions().clear();
         for (ListSelect listSelect : lsAttributes) {
             if (listSelect.getValue() instanceof Collection) {
@@ -111,12 +116,6 @@ public class MenuItemAttributesView extends NavigationView implements Component.
             }
         }
         lblDescription.setCaption(customerOrderLine.getDescription());
-        CustomerOrder customerOrder = SessionManager.getCustomerOrder();
-        SessionManager.saveCustomerOrder(customerOrder);
-    }
-
-    public boolean isComplete() {
-        return complete;
     }
 
     private void clearSelections() {

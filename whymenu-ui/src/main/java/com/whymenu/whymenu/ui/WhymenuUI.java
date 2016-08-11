@@ -18,6 +18,8 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.UI;
+import com.whymenu.data.CustomerOrder;
+import com.whymenu.data.MenuItem;
 import com.whymenu.whymenu.ui.view.CustomerOrderView;
 
 /**
@@ -32,10 +34,11 @@ import com.whymenu.whymenu.ui.view.CustomerOrderView;
 @OfflineModeEnabled
 // Make the server retain UI state whenever the browser reloads the app
 @PreserveOnRefresh
-public class WhymenuTouchKitUI extends UI {
+public class WhymenuUI extends UI {
 
     private MenuView menuView;
     private CustomerOrderView customerOrderView;
+    private CustomerOrder customerOrder;
 
     private final WhymenuPersistToServerRpc serverRpc = () -> {
         // TODO this method is called from client side to store offline data
@@ -67,7 +70,7 @@ public class WhymenuTouchKitUI extends UI {
         // Define the timeout in secs to wait when a server request is sent
         // before falling back to offline mode.
         offlineMode.setOfflineModeTimeout(15);
-        
+
         tabBarView.addListener(new SelectedTabChangeListener() {
             @Override
             public void selectedTabChange(TabBarView.SelectedTabChangeEvent event) {
@@ -76,7 +79,6 @@ public class WhymenuTouchKitUI extends UI {
                 }
             }
         });
-                
 
         navigationManager.addNavigationListener((NavigationEvent event) -> {
             if (navigationManager.getCurrentComponent().equals(customerOrderView)) {
@@ -88,6 +90,17 @@ public class WhymenuTouchKitUI extends UI {
                 //        + manager.getCurrentComponent().getCaption());
             }
         });
+    }
+
+    public CustomerOrder getCustomerOrder() {
+        if (customerOrder == null) {
+            customerOrder = new CustomerOrder();
+        }
+        return customerOrder;
+    }
+    
+    public static WhymenuUI getApp() {
+        return (WhymenuUI) UI.getCurrent();
     }
 
 }

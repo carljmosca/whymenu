@@ -9,9 +9,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Notification;
 import com.whymenu.data.MenuItem;
 import com.whymenu.service.MenuItemService;
-import com.whymenu.whymenu.util.SessionManager;
 import java.util.HashMap;
-import java.util.Map;
 
 @SuppressWarnings("serial")
 public class MenuItemView extends NavigationView {

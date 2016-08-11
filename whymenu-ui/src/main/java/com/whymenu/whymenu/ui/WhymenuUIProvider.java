@@ -16,7 +16,7 @@ public class WhymenuUIProvider extends UIProvider {
         boolean mobileParameter = event.getRequest().getParameter("mobile") != null;
 
         if (overrideMobileUA() || mobileUserAgent || mobileParameter) {
-            return WhymenuTouchKitUI.class;
+            return WhymenuUI.class;
         } else {
             return WhymenuFallbackUI.class;
         }

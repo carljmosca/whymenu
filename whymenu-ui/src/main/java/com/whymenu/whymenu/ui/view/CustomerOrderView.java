@@ -12,6 +12,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.CssLayout; 
 import com.vaadin.ui.Table;
 import com.whymenu.data.CustomerOrderLine;
+import com.whymenu.whymenu.ui.WhymenuUI;
 import com.whymenu.whymenu.util.SessionManager;
 
 /**
@@ -36,7 +37,7 @@ public class CustomerOrderView extends NavigationView {
     
     private void refresh() {
         customerOrderLines.removeAllItems();
-        SessionManager.getCustomerOrder().getCustomerOrderLines().stream().forEach((customerOrderLine) -> {
+        WhymenuUI.getApp().getCustomerOrder().getCustomerOrderLines().stream().forEach((customerOrderLine) -> {
             customerOrderLines.addBean(customerOrderLine);
         });
         tblCustomerOrder.refreshRowCache();

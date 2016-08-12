@@ -96,8 +96,10 @@ public class CustomerOrderLine implements Serializable {
     public String getDescription() {
         StringBuilder orderItemDescription = new StringBuilder();
         orderItemDescription.append(name).append(Utility.CHARACTER_SPACE);
-        for (MenuItemAttributeOption option : options) {
-            orderItemDescription.append(option.getDescription()).append(Utility.CHARACTER_SPACE);
+        if (options != null) {
+            for (MenuItemAttributeOption option : options) {
+                orderItemDescription.append(option.getDescription()).append(Utility.CHARACTER_SPACE);
+            }
         }
         if (price != null) {
             orderItemDescription.append(quantity).append(Utility.CHARACTER_SPACE).append(Utility.CHARACTER_AMPERSAND).append(Utility.CHARACTER_SPACE).append(NumberFormat.getCurrencyInstance().format(price));

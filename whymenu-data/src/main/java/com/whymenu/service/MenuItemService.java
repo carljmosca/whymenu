@@ -50,7 +50,7 @@ public class MenuItemService extends BaseService implements Serializable {
         try {
             BatchGetValuesResponse response
                     = service.spreadsheets().values().
-                    batchGet(spreadsheetId).setRanges(ranges)
+                    batchGet(menuSpreadsheetId).setRanges(ranges)
                     .execute();
             values = response.getValueRanges();
         } catch (IOException e) {

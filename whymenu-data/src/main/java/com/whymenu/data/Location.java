@@ -23,6 +23,7 @@ public class Location implements Serializable {
     private String hours;
     private double longitude;
     private double latitude;
+    private String orderSheetId;
 
     public Location() {
         
@@ -106,6 +107,14 @@ public class Location implements Serializable {
 
     public void setHours(String hours) {
         this.hours = hours;
+    }
+
+    public String getOrderSheetId() {
+        return orderSheetId;
+    }
+
+    public void setOrderSheetId(String orderSheetId) {
+        this.orderSheetId = orderSheetId;
     }
     
 }

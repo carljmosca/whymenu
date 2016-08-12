@@ -40,7 +40,7 @@ public class BaseService implements Serializable {
     protected static final List<String> SCOPES = Arrays.asList(SheetsScopes.SPREADSHEETS);
     protected Credential credential;
     protected Sheets service;
-    protected String spreadsheetId;
+    protected String menuSpreadsheetId;
     protected HashMap<String, Integer> columns;
     protected List<ValueRange> values;
     protected List<String> ranges;
@@ -57,7 +57,7 @@ public class BaseService implements Serializable {
         try {
             authorizeWithServiceAccount();
             service = getSheetsService();
-            spreadsheetId = Utility.getEnvironmentOrPropertyVariables(WHYMENU_SPREADSHEET_ID);
+            menuSpreadsheetId = Utility.getEnvironmentOrPropertyVariables(WHYMENU_SPREADSHEET_ID);
             columns = new HashMap<>();
             ranges = new ArrayList<>();
 

@@ -26,6 +26,7 @@ public class LocationService extends BaseService implements Serializable {
     private final String COLUMN_NAME_STATE = "State";
     private final String COLUMN_NAME_ZIP = "Zip";
     private final String COLUMN_NAME_HOURS = "Hours";
+    private final String COLUMN_ORDER_SHEET_ID = "Order Sheet Id";
 
     public List<Location> loadLocations() {
         List<Location> locations = new ArrayList<>();
@@ -35,7 +36,7 @@ public class LocationService extends BaseService implements Serializable {
         try {
             BatchGetValuesResponse response
                     = service.spreadsheets().values().
-                    batchGet(spreadsheetId).setRanges(ranges)
+                    batchGet(menuSpreadsheetId).setRanges(ranges)
                     .execute();
             values = response.getValueRanges();
         } catch (IOException e) {
@@ -67,6 +68,9 @@ public class LocationService extends BaseService implements Serializable {
                             break;
                         case COLUMN_NAME_HOURS:
                             columns.put(COLUMN_NAME_HOURS, i);
+                            break;
+                        case COLUMN_ORDER_SHEET_ID:
+                            columns.put(COLUMN_ORDER_SHEET_ID, i);
                             break;
                         default:
                             break;

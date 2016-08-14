@@ -13,8 +13,9 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
 import com.wcs.wcslib.vaadin.widget.recaptcha.ReCaptcha;
+import com.wcs.wcslib.vaadin.widget.recaptcha.shared.ReCaptchaOptions;
 import com.whymenu.data.CustomerOrderLine;
-import com.whymenu.whymenu.ui.ReCaptchaManager;
+import com.whymenu.util.Utility;
 import com.whymenu.whymenu.ui.WhymenuUI;
 
 /**
@@ -25,7 +26,6 @@ public class CustomerOrderView extends NavigationView {
 
     private Table tblCustomerOrder;
     private final BeanItemContainer<CustomerOrderLine> customerOrderLines;
-    private ReCaptchaManager reCaptchaManager;
     private ReCaptcha captcha;
 
     public CustomerOrderView() {
@@ -58,28 +58,29 @@ public class CustomerOrderView extends NavigationView {
         tblCustomerOrder.setColumnHeader("quantity", "Qty");
         tblCustomerOrder.setColumnHeader("price", "Price");
         content.addComponent(tblCustomerOrder);
-        reCaptchaManager = new ReCaptchaManager();
-        captcha = reCaptchaManager.addRecaptcha();
+        captcha = addRecaptcha();
         content.addComponent(captcha);
         final Button submitButton = new Button("Submit Order");
         submitButton.addClickListener((Button.ClickEvent event) -> {
-            if (submitOrder()) {
+            if (!captcha.validate()) {
+                Notification.show("Invalid!", Notification.Type.ERROR_MESSAGE);
+                captcha.reload();
+            } else {
                 getNavigationManager().navigateBack();
             }
         });
         setContent(new CssLayout(content, submitButton));
     }
 
-    private boolean submitOrder() {
-        boolean result = true;
-
-        if (!captcha.validate()) {
-            Notification.show("Invalid!", Notification.Type.ERROR_MESSAGE);
-            result = false;
-            captcha.reload();
+    private ReCaptcha addRecaptcha() {
+        return new ReCaptcha(
+                Utility.getEnvironmentOrPropertyVariables("RECAPTCHA_PRIVATE_KEY"),
+                new ReCaptchaOptions() {
+            {
+                theme = "light";
+                sitekey = Utility.getEnvironmentOrPropertyVariables("RECAPTCHA_SITE_KEY");
+            }
         }
-        //1w1mk7Mb8-Ukfy1b06a9LuQXSGu7RvlOKhkOYwOghM2o
-        return result;
+        );
     }
-
 }

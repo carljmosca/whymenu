@@ -5,6 +5,7 @@
  */
 package com.whymenu.service;
 
+import com.google.api.services.sheets.v4.model.AppendValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import com.whymenu.data.CustomerOrder;
 import com.whymenu.data.CustomerOrderLine;
@@ -24,9 +25,9 @@ public class CustomerOrderService extends BaseService implements Serializable {
 
     private static final Logger LOGGER = Logger.getLogger(CustomerOrderService.class.getName());
     
-    public void saveOrder(String orderSheetId, CustomerOrder customerOrder) {
-        ValueRange vr = new ValueRange();
-        
+    public boolean saveOrder(String orderSheetId, CustomerOrder customerOrder) {
+        boolean result = false;
+        ValueRange vr = new ValueRange();        
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
         List<List<Object>> orderLines = new ArrayList<>();
         int row = 0;
@@ -45,12 +46,13 @@ public class CustomerOrderService extends BaseService implements Serializable {
         vr = vr.setRange("Sheet1!a2:c2").setValues(orderLines).setMajorDimension("ROWS");
        
         try {
-            service.spreadsheets().values()
-                    .append(orderSheetId, "Sheet1!a2:c2", vr).setValueInputOption("USER_ENTERED")
-                    .setInsertDataOption("INSERT_ROWS")
+            AppendValuesResponse response = service.spreadsheets().values()
+                    .append(orderSheetId, "Sheet1!a1:c1", vr).setValueInputOption("USER_ENTERED")
                     .execute();
+            result = ((response != null) && (response.getUpdates().getUpdatedRows() == 1));
         } catch (IOException e) {
             LOGGER.warning(e.getMessage());
         }
+        return result;
     }
 }

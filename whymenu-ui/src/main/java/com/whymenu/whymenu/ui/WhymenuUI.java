@@ -19,7 +19,6 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.UI;
 import com.whymenu.data.CustomerOrder;
-import com.whymenu.data.MenuItem;
 import com.whymenu.whymenu.ui.view.CustomerOrderView;
 
 /**
@@ -71,12 +70,9 @@ public class WhymenuUI extends UI {
         // before falling back to offline mode.
         offlineMode.setOfflineModeTimeout(15);
 
-        tabBarView.addListener(new SelectedTabChangeListener() {
-            @Override
-            public void selectedTabChange(TabBarView.SelectedTabChangeEvent event) {
-                if (event.getTabSheet().getSelelectedTab().getComponent().equals(customerOrderView)) {
-                    //customerOrderView.refresh();
-                }
+        tabBarView.addListener((SelectedTabChangeListener) (TabBarView.SelectedTabChangeEvent event) -> {
+            if (event.getTabSheet().getSelelectedTab().getComponent().equals(customerOrderView)) {
+                //customerOrderView.refresh();
             }
         });
 

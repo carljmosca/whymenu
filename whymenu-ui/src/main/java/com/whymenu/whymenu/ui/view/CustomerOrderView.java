@@ -17,16 +17,19 @@ import com.wcs.wcslib.vaadin.widget.recaptcha.shared.ReCaptchaOptions;
 import com.whymenu.data.CustomerOrderLine;
 import com.whymenu.util.Utility;
 import com.whymenu.whymenu.ui.WhymenuUI;
+import java.io.Serializable;
 
 /**
  *
  * @author moscac
  */
-public class CustomerOrderView extends NavigationView {
+public class CustomerOrderView extends NavigationView implements Serializable {
 
     private Table tblCustomerOrder;
     private final BeanItemContainer<CustomerOrderLine> customerOrderLines;
-    private ReCaptcha captcha;
+    private ReCaptcha reCaptcha;
+    private VerticalComponentGroup content;
+    private Button submitButton;
 
     public CustomerOrderView() {
         customerOrderLines = new BeanItemContainer<>(CustomerOrderLine.class);
@@ -45,10 +48,14 @@ public class CustomerOrderView extends NavigationView {
             customerOrderLines.addBean(customerOrderLine);
         });
         tblCustomerOrder.refreshRowCache();
+        content.removeAllComponents();
+        content.addComponent(tblCustomerOrder);
+        content.addComponent(reCaptcha);
+        setContent(new CssLayout(content, submitButton));
     }
 
     private void init() {
-        final VerticalComponentGroup content = new VerticalComponentGroup();
+        content = new VerticalComponentGroup();
         tblCustomerOrder = new Table();
         tblCustomerOrder.setContainerDataSource(customerOrderLines);
         tblCustomerOrder.setImmediate(true);
@@ -57,19 +64,17 @@ public class CustomerOrderView extends NavigationView {
         tblCustomerOrder.setColumnHeader("description", "Description");
         tblCustomerOrder.setColumnHeader("quantity", "Qty");
         tblCustomerOrder.setColumnHeader("price", "Price");
-        content.addComponent(tblCustomerOrder);
-        captcha = addRecaptcha();
-        content.addComponent(captcha);
-        final Button submitButton = new Button("Submit Order");
+        reCaptcha = addRecaptcha();
+        submitButton = new Button("Submit Order");
         submitButton.addClickListener((Button.ClickEvent event) -> {
-            if (!captcha.validate()) {
+            if (!reCaptcha.validate()) {
                 Notification.show("Invalid!", Notification.Type.ERROR_MESSAGE);
-                captcha.reload();
+                reCaptcha.reload();
             } else {
-                getNavigationManager().navigateBack();
+                content.removeComponent(reCaptcha);
+                Notification.show("Thank you", Notification.Type.HUMANIZED_MESSAGE);
             }
         });
-        setContent(new CssLayout(content, submitButton));
     }
 
     private ReCaptcha addRecaptcha() {
@@ -83,4 +88,5 @@ public class CustomerOrderView extends NavigationView {
         }
         );
     }
+
 }

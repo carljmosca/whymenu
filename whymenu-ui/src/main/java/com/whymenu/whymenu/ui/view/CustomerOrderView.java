@@ -59,6 +59,7 @@ public class CustomerOrderView extends NavigationView implements Serializable {
         tblCustomerOrder = new Table();
         tblCustomerOrder.setContainerDataSource(customerOrderLines);
         tblCustomerOrder.setImmediate(true);
+        tblCustomerOrder.setHeight("150px");
         tblCustomerOrder.setVisibleColumns(new Object[]{"description", "quantity",
             "price"});
         tblCustomerOrder.setColumnHeader("description", "Description");
@@ -72,6 +73,7 @@ public class CustomerOrderView extends NavigationView implements Serializable {
                 reCaptcha.reload();
             } else {
                 content.removeComponent(reCaptcha);
+                Notification.show("Thank you", Notification.Type.ASSISTIVE_NOTIFICATION);
             }
         });
     }

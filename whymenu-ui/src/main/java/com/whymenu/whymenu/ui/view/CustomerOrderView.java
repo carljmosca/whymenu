@@ -72,7 +72,6 @@ public class CustomerOrderView extends NavigationView implements Serializable {
                 reCaptcha.reload();
             } else {
                 content.removeComponent(reCaptcha);
-                Notification.show("Thank you", Notification.Type.HUMANIZED_MESSAGE);
             }
         });
     }

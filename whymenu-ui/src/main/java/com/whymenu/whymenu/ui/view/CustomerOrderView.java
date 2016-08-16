@@ -55,7 +55,9 @@ public class CustomerOrderView extends NavigationView implements Serializable {
         tblCustomerOrder.refreshRowCache();
         content.removeAllComponents();
         content.addComponent(tblCustomerOrder);
-        content.addComponent(reCaptcha);
+        if (!WhymenuUI.getApp().isReCaptchaValidated()) {
+            content.addComponent(reCaptcha);
+        }
         setContent(new CssLayout(content, submitButton));
     }
 
@@ -73,10 +75,11 @@ public class CustomerOrderView extends NavigationView implements Serializable {
         reCaptcha = addRecaptcha();
         submitButton = new Button("Submit Order");
         submitButton.addClickListener((Button.ClickEvent event) -> {
-            if (!reCaptcha.validate()) {
+            if (!WhymenuUI.getApp().isReCaptchaValidated() && !reCaptcha.validate()) {
                 Notification.show("Invalid!", Notification.Type.ERROR_MESSAGE);
                 reCaptcha.reload();
             } else {
+                WhymenuUI.getApp().setReCaptchaValidated(true);
                 Location location = WhymenuUI.getApp().getLocation();
                 CustomerOrder customerOrder = WhymenuUI.getApp().getCustomerOrder();
                 customerOrderService.saveOrder(location.getOrderSheetId(), customerOrder);

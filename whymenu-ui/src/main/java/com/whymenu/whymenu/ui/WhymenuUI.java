@@ -40,6 +40,7 @@ public class WhymenuUI extends UI {
     private CustomerOrderView customerOrderView;
     private CustomerOrder customerOrder;
     private Location location;
+    private boolean reCaptchaValidated;
 
     private final WhymenuPersistToServerRpc serverRpc = () -> {
         // TODO this method is called from client side to store offline data
@@ -107,6 +108,14 @@ public class WhymenuUI extends UI {
     
     public static WhymenuUI getApp() {
         return (WhymenuUI) UI.getCurrent();
+    }
+
+    public boolean isReCaptchaValidated() {
+        return reCaptchaValidated;
+    }
+
+    public void setReCaptchaValidated(boolean reCaptchaValidated) {
+        this.reCaptchaValidated = reCaptchaValidated;
     }
 
 }

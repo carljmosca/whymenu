@@ -19,6 +19,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.UI;
 import com.whymenu.data.CustomerOrder;
+import com.whymenu.data.Location;
 import com.whymenu.whymenu.ui.view.CustomerOrderView;
 
 /**
@@ -38,6 +39,7 @@ public class WhymenuUI extends UI {
     private MenuView menuView;
     private CustomerOrderView customerOrderView;
     private CustomerOrder customerOrder;
+    private Location location;
 
     private final WhymenuPersistToServerRpc serverRpc = () -> {
         // TODO this method is called from client side to store offline data
@@ -93,6 +95,14 @@ public class WhymenuUI extends UI {
             customerOrder = new CustomerOrder();
         }
         return customerOrder;
+    }
+    
+    public Location getLocation() {
+        return location;
+    }
+    
+    public void setLocation(Location location) {
+        this.location = location;
     }
     
     public static WhymenuUI getApp() {

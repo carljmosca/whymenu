@@ -7,6 +7,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Notification;
+import com.whymenu.data.Location;
 import com.whymenu.data.MenuItem;
 import com.whymenu.service.MenuItemService;
 import java.util.HashMap;
@@ -15,10 +16,10 @@ import java.util.HashMap;
 public class MenuItemView extends NavigationView {
 
     private final MenuItemService menuItemService;
-    private final String location;
+    private final Location location;
     private final HashMap<String, MenuItemAttributesView> menuItemAttributesViews;
 
-    public MenuItemView(String location) {
+    public MenuItemView(Location location) {
         this.location = location;
         menuItemAttributesViews = new HashMap<>();
         menuItemService = new MenuItemService();
@@ -29,7 +30,7 @@ public class MenuItemView extends NavigationView {
         setCaption("Item");
         final VerticalComponentGroup content = new VerticalComponentGroup();
 
-        for (MenuItem menuItem : menuItemService.loadMenuItems(location)) {
+        for (MenuItem menuItem : menuItemService.loadMenuItems(location.getName())) {
             NavigationButton button = new NavigationButton(menuItem.getName());
             menuItemAttributesViews.put(menuItem.getName(), new MenuItemAttributesView(menuItem));
             button.addClickListener((NavigationButton.NavigationButtonClickEvent event) -> {

@@ -5,6 +5,7 @@ import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
 import com.whymenu.data.Location;
 import com.whymenu.service.LocationService;
+import com.whymenu.whymenu.ui.WhymenuUI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,9 @@ public class MenuView extends NavigationView {
         NavigationButton button = new NavigationButton(location.getName());
         button.setDescription(location.getDescription());
         button.addClickListener((NavigationButton.NavigationButtonClickEvent event) -> {
-            getNavigationManager().navigateTo(new MenuItemView(((NavigationButton) event.getSource()).getCaption()));
+            WhymenuUI.getApp().setLocation(location);
+            getNavigationManager().navigateTo(new MenuItemView(location));
+                    //((NavigationButton) event.getSource()).getCaption()));
         });
         content.addComponent(button);
         buttons.put(location.getName(), button);

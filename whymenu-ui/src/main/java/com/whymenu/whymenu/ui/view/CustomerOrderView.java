@@ -14,7 +14,10 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
 import com.wcs.wcslib.vaadin.widget.recaptcha.ReCaptcha;
 import com.wcs.wcslib.vaadin.widget.recaptcha.shared.ReCaptchaOptions;
+import com.whymenu.data.CustomerOrder;
 import com.whymenu.data.CustomerOrderLine;
+import com.whymenu.data.Location;
+import com.whymenu.service.CustomerOrderService;
 import com.whymenu.util.Utility;
 import com.whymenu.whymenu.ui.WhymenuUI;
 import java.io.Serializable;
@@ -30,9 +33,11 @@ public class CustomerOrderView extends NavigationView implements Serializable {
     private ReCaptcha reCaptcha;
     private VerticalComponentGroup content;
     private Button submitButton;
+    private final CustomerOrderService customerOrderService;
 
     public CustomerOrderView() {
         customerOrderLines = new BeanItemContainer<>(CustomerOrderLine.class);
+        customerOrderService = new CustomerOrderService();
         init();
     }
 
@@ -72,6 +77,9 @@ public class CustomerOrderView extends NavigationView implements Serializable {
                 Notification.show("Invalid!", Notification.Type.ERROR_MESSAGE);
                 reCaptcha.reload();
             } else {
+                Location location = WhymenuUI.getApp().getLocation();
+                CustomerOrder customerOrder = WhymenuUI.getApp().getCustomerOrder();
+                customerOrderService.saveOrder(location.getOrderSheetId(), customerOrder);
                 content.removeComponent(reCaptcha);
                 Notification.show("Thank you", Notification.Type.HUMANIZED_MESSAGE); // ASSISTIVE_NOTIFICATION);
             }

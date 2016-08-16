@@ -86,6 +86,7 @@ public class LocationService extends BaseService implements Serializable {
                 location.setState(getStringValue(row, COLUMN_NAME_STATE));
                 location.setPostalCode(getStringValue(row, COLUMN_NAME_ZIP));
                 location.setHours(getStringValue(row, COLUMN_NAME_HOURS));
+                location.setOrderSheetId(getStringValue(row, COLUMN_ORDER_SHEET_ID));
                 locations.add(location);
             });
         }

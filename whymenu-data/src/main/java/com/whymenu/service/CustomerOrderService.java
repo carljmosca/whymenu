@@ -43,7 +43,7 @@ public class CustomerOrderService extends BaseService implements Serializable {
             rowValues.add(customerOrderLine.getDescription());
             orderLines.add(rowValues);
         }
-        vr = vr.setRange("Sheet1!a2:c2").setValues(orderLines).setMajorDimension("ROWS");
+        vr = vr.setRange("Sheet1!a1:c1").setValues(orderLines).setMajorDimension("ROWS");
        
         try {
             AppendValuesResponse response = service.spreadsheets().values()

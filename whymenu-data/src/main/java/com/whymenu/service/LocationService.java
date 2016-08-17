@@ -27,6 +27,7 @@ public class LocationService extends BaseService implements Serializable {
     private final String COLUMN_NAME_ZIP = "Zip";
     private final String COLUMN_NAME_HOURS = "Hours";
     private final String COLUMN_ORDER_SHEET_ID = "Order Sheet Id";
+    private final String COLUMN_TIME_ZONE = "Time Zone";
 
     public List<Location> loadLocations() {
         List<Location> locations = new ArrayList<>();
@@ -72,6 +73,9 @@ public class LocationService extends BaseService implements Serializable {
                         case COLUMN_ORDER_SHEET_ID:
                             columns.put(COLUMN_ORDER_SHEET_ID, i);
                             break;
+                        case COLUMN_TIME_ZONE:
+                            columns.put(COLUMN_TIME_ZONE, i);
+                            break;
                         default:
                             break;
                     }
@@ -87,6 +91,7 @@ public class LocationService extends BaseService implements Serializable {
                 location.setPostalCode(getStringValue(row, COLUMN_NAME_ZIP));
                 location.setHours(getStringValue(row, COLUMN_NAME_HOURS));
                 location.setOrderSheetId(getStringValue(row, COLUMN_ORDER_SHEET_ID));
+                location.setTimeZone(getStringValue(row, COLUMN_TIME_ZONE));
                 locations.add(location);
             });
         }

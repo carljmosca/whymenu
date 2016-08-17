@@ -24,6 +24,7 @@ public class Location implements Serializable {
     private double longitude;
     private double latitude;
     private String orderSheetId;
+    private String timeZone;
 
     public Location() {
         
@@ -115,6 +116,14 @@ public class Location implements Serializable {
 
     public void setOrderSheetId(String orderSheetId) {
         this.orderSheetId = orderSheetId;
+    }
+
+    public String getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
     }
     
 }

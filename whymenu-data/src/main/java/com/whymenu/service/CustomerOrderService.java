@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
 /**
@@ -24,11 +25,18 @@ import java.util.logging.Logger;
 public class CustomerOrderService extends BaseService implements Serializable {
 
     private static final Logger LOGGER = Logger.getLogger(CustomerOrderService.class.getName());
-    
-    public boolean saveOrder(String orderSheetId, CustomerOrder customerOrder) {
+
+    public boolean saveOrder(String orderSheetId, CustomerOrder customerOrder, String timeZoneID) {
         boolean result = false;
-        ValueRange vr = new ValueRange();        
+        ValueRange vr = new ValueRange();
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        TimeZone timeZone;
+        if (timeZoneID == null) {
+            timeZone = TimeZone.getTimeZone(timeZoneID);
+        } else {
+            timeZone = TimeZone.getTimeZone("America/New_York");
+        }
+        sdf.setTimeZone(timeZone);
         List<List<Object>> orderLines = new ArrayList<>();
         int row = 0;
         for (CustomerOrderLine customerOrderLine : customerOrder.getCustomerOrderLines()) {
@@ -44,7 +52,7 @@ public class CustomerOrderService extends BaseService implements Serializable {
             orderLines.add(rowValues);
         }
         vr = vr.setRange("Sheet1!a1:c1").setValues(orderLines).setMajorDimension("ROWS");
-       
+
         try {
             AppendValuesResponse response = service.spreadsheets().values()
                     .append(orderSheetId, "Sheet1!a1:c1", vr).setValueInputOption("USER_ENTERED")

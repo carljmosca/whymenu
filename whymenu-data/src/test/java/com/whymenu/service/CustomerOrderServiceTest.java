@@ -53,7 +53,7 @@ public class CustomerOrderServiceTest {
         customerOrderLine.setName("Donut");
         customerOrderLine.getOptions();
         customerOrder.getCustomerOrderLines().add(customerOrderLine);        
-        instance.saveOrder(orderSheetId, customerOrder);
+        instance.saveOrder(orderSheetId, customerOrder, "");
         assertTrue(true);
     }
     

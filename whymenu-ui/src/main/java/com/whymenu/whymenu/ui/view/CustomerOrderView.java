@@ -80,11 +80,12 @@ public class CustomerOrderView extends NavigationView implements Serializable {
                 reCaptcha.reload();
             } else {
                 WhymenuUI.getApp().setReCaptchaValidated(true);
+                content.removeComponent(reCaptcha);
                 Location location = WhymenuUI.getApp().getLocation();
                 CustomerOrder customerOrder = WhymenuUI.getApp().getCustomerOrder();
-                customerOrderService.saveOrder(location.getOrderSheetId(), customerOrder);
-                content.removeComponent(reCaptcha);
-                Notification.show("Thank you", Notification.Type.HUMANIZED_MESSAGE); // ASSISTIVE_NOTIFICATION);
+                if (customerOrderService.saveOrder(location.getOrderSheetId(), customerOrder, location.getTimeZone())) {
+                    Notification.show("Thank you", Notification.Type.HUMANIZED_MESSAGE);
+                }
             }
         });
     }

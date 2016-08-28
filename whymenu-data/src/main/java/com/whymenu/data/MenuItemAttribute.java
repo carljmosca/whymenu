@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class MenuItemAttribute implements Serializable {
 
+    private static final long serialVersionUID = 3160595632603953907L;
     private int order;
     private String description;
     private List<MenuItemAttributeOption> details;

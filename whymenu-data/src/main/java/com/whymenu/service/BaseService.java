@@ -38,6 +38,7 @@ public class BaseService implements Serializable {
     public static final String WHYMENU_SPREADSHEET_ID = "WHYMENU_SPREADSHEET_ID";
     public static final String WHYMENU_SERVICE_ACCOUNT = "WHYMENU_SERVICE_ACCOUNT";
     protected static final List<String> SCOPES = Arrays.asList(SheetsScopes.SPREADSHEETS);
+    private static final long serialVersionUID = 6050795509094137256L;
     protected Credential credential;
     protected Sheets service;
     protected String menuSpreadsheetId;
@@ -45,7 +46,7 @@ public class BaseService implements Serializable {
     protected List<ValueRange> values;
     protected List<String> ranges;
 
-    private static final String APPLICATION_NAME = "Google Sheets API Java Quickstart";
+    private static final String APPLICATION_NAME = "Whymenu data service";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static HttpTransport HTTP_TRANSPORT;
 

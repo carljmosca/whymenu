@@ -17,7 +17,7 @@ import com.wcs.wcslib.vaadin.widget.recaptcha.shared.ReCaptchaOptions;
 import com.whymenu.data.CustomerOrder;
 import com.whymenu.data.CustomerOrderLine;
 import com.whymenu.data.Location;
-import com.whymenu.service.CustomerOrderService;
+import com.whymenu.service.sheets.CustomerOrderService;
 import com.whymenu.util.Utility;
 import com.whymenu.whymenu.ui.WhymenuUI;
 import java.io.Serializable;

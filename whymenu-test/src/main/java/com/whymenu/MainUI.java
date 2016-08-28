@@ -16,8 +16,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.whymenu.data.Location;
-import com.whymenu.service.FirebaseService;
-import com.whymenu.service.LocationService;
+import com.whymenu.service.firebase.FirebaseService;
+import com.whymenu.service.sheets.LocationService;
 import java.util.HashMap;
 
 /**

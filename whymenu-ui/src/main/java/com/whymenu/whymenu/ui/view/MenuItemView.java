@@ -9,7 +9,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Notification;
 import com.whymenu.data.Location;
 import com.whymenu.data.MenuItem;
-import com.whymenu.service.MenuItemService;
+import com.whymenu.service.sheets.MenuItemService;
 import java.util.HashMap;
 
 @SuppressWarnings("serial")

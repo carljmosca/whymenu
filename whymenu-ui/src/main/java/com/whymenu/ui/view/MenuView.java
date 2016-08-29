@@ -1,11 +1,11 @@
-package com.whymenu.whymenu.ui.view;
+package com.whymenu.ui.view;
 
 import com.vaadin.addon.touchkit.ui.NavigationButton;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
 import com.whymenu.data.Location;
 import com.whymenu.service.sheets.LocationService;
-import com.whymenu.whymenu.ui.WhymenuUI;
+import com.whymenu.ui.WhymenuUI;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.whymenu.whymenu.ui.view;
+package com.whymenu.ui.view;
 
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
@@ -19,7 +19,7 @@ import com.whymenu.data.CustomerOrderLine;
 import com.whymenu.data.Location;
 import com.whymenu.service.sheets.CustomerOrderService;
 import com.whymenu.util.Utility;
-import com.whymenu.whymenu.ui.WhymenuUI;
+import com.whymenu.ui.WhymenuUI;
 import java.io.Serializable;
 
 /**

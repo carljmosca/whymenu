@@ -1,7 +1,7 @@
-package com.whymenu.whymenu.ui;
+package com.whymenu.ui;
 
-import com.whymenu.whymenu.ui.view.MenuView;
-import com.whymenu.whymenu.ui.gwt.client.*;
+import com.whymenu.ui.gwt.client.WhymenuPersistToServerRpc;
+import com.whymenu.ui.view.MenuView;
 
 import com.vaadin.addon.touchkit.annotations.CacheManifestEnabled;
 import com.vaadin.addon.touchkit.annotations.OfflineModeEnabled;
@@ -20,7 +20,7 @@ import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.UI;
 import com.whymenu.data.CustomerOrder;
 import com.whymenu.data.Location;
-import com.whymenu.whymenu.ui.view.CustomerOrderView;
+import com.whymenu.ui.view.CustomerOrderView;
 
 /**
  * The UI's "main" class

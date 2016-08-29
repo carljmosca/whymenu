@@ -1,4 +1,4 @@
-package com.whymenu.whymenu.ui;
+package com.whymenu.ui;
 
 import com.vaadin.server.UIClassSelectionEvent;
 import com.vaadin.server.UIProvider;
@@ -18,7 +18,7 @@ public class WhymenuUIProvider extends UIProvider {
         if (overrideMobileUA() || mobileUserAgent || mobileParameter) {
             return WhymenuUI.class;
         } else {
-            return WhymenuFallbackUI.class;
+            return WhymenuDesktopUI.class;
         }
     }
 

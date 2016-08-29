@@ -1,4 +1,4 @@
-package com.whymenu.whymenu.ui;
+package com.whymenu.ui;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

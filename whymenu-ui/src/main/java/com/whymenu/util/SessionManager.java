@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.whymenu.whymenu.util;
+package com.whymenu.util;
 
 import com.whymenu.data.CustomerOrder;
-import com.whymenu.whymenu.ui.WhymenuUI;
+import com.whymenu.ui.WhymenuUI;
 
 /**
  *

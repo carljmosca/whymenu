@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.whymenu.whymenu.ui.view;
+package com.whymenu.ui.view;
 
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.NumberField;
@@ -18,7 +18,7 @@ import com.whymenu.data.CustomerOrderLine;
 import com.whymenu.data.MenuItem;
 import com.whymenu.data.MenuItemAttribute;
 import com.whymenu.data.MenuItemAttributeOption;
-import com.whymenu.whymenu.ui.WhymenuUI;
+import com.whymenu.ui.WhymenuUI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

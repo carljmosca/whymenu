@@ -24,16 +24,18 @@ public class LocationService {
 
     private FirebaseDatabase database;
     private DatabaseReference locationsRef;
+    private final String storeName;
     private HashMap<String, Location> locations;
 
-    public LocationService() {
+    public LocationService(String storeName) {
+        this.storeName = storeName;
         init();
     }
 
     private void init() {
         database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference();
-        locationsRef = databaseReference.child("locations");
+        locationsRef = databaseReference.child(storeName + "/locations");
         locationsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -76,9 +78,8 @@ public class LocationService {
         try {
             locationsRef.push().setValue(location, (DatabaseError databaseError, DatabaseReference databaseReference1) -> {
                 if (databaseError != null) {
-                    System.out.println("Data could not be saved " + databaseError.getMessage());
-                } else {
-                    System.out.println("Data saved successfully.");
+                    Logger.getLogger(LocationService.class.getName()).log(Level.WARNING,
+                            "Data could not be saved {0}", databaseError.getMessage());
                 }
             });
             Thread.sleep(100000);

@@ -15,11 +15,8 @@
             
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--<vaadin.version>[7.3.1,7.3.9999]</vaadin.version>-->
-        <vaadin.version>7.6.8</vaadin.version>
-        <!--        <vaadin.version.maven>7.3.1</vaadin.version.maven>-->
-        <vaadin.version.maven>7.6.8</vaadin.version.maven>
-        <!--        <touchkit.version>4.0.0</touchkit.version>-->
+        <vaadin.version>7.7.6</vaadin.version>
+        <vaadin.version.maven>7.7.6</vaadin.version.maven>
         <touchkit.version>4.1.0</touchkit.version>
         <docker.image.prefix>whymenu</docker.image.prefix>
     </properties>
@@ -70,23 +67,22 @@
             <version>${vaadin.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <!-- Needed in eclipse for compiling widgetset -->
+        <!--        <dependency>
+             Needed in eclipse for compiling widgetset 
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-client-compiler</artifactId>
             <version>${vaadin.version}</version>
             <scope>provided</scope>
+        </dependency>-->
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-client-compiled</artifactId>
+            <version>${vaadin.version}</version>
         </dependency>
         <dependency>
             <!-- Desktop fallback uses reindeer theme -->
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-themes</artifactId>
-            <version>${vaadin.version}</version>
-        </dependency>
-        <dependency>
-            <!-- Desktop fallback uses default widgetset -->
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-client-compiled</artifactId>
             <version>${vaadin.version}</version>
         </dependency>
         <dependency>
@@ -117,7 +113,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.6.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -126,13 +122,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.2</version>
+                <version>3.0.0</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <!--                    <outputDirectory>../target</outputDirectory>                        -->
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
@@ -140,8 +134,7 @@
                 <configuration>
                     <webappDirectory>${basedir}/src/main/webapp/VAADIN/widgetsets
                     </webappDirectory>
-                    <hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets
-                    </hostedWebapp>
+                    <hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets</hostedWebapp>
                     <extraJvmArgs>-Xmx1g -Xss4024k</extraJvmArgs>
                     <noServer>true</noServer>
                     <!-- Remove draftCompile when project is ready -->
@@ -150,10 +143,10 @@
                     <style>OBF</style>
                     <persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
                     <deploy>${project.build.directory}/gwt-deploy</deploy>
-                    <runTarget>http://localhost:8080/web</runTarget>
+                    <runTarget>http://localhost:8080/</runTarget>
                     <extraJvmArgs>-Xmx1024M -Xss4024k</extraJvmArgs>
                     <modules>
-                        <module>com.whymenu.ui.gwt.whymenuWidgetSet</module>
+                        <module>com.whymenu.ui.gwt.WhymenuWidgetSet</module>
                     </modules>
                 </configuration>
                 <executions>
@@ -166,6 +159,37 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--            <plugin>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-maven-plugin</artifactId>
+                <version>${vaadin.version.maven}</version>
+                <configuration>
+                    <webappDirectory>${basedir}/src/main/webapp/VAADIN/widgetsets</webappDirectory>
+                    <hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets</hostedWebapp>
+                    <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+                    <noServer>true</noServer>
+                    <draftCompile>false</draftCompile>
+                    <compileReport>false</compileReport>
+                    <style>OBF</style>
+                    <persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
+                    <deploy>${project.build.directory}/gwt-deploy</deploy>
+                    <runTarget>http://localhost:8080/</runTarget>
+                    <extraJvmArgs>-Xmx1024M -Xss4024k</extraJvmArgs>
+                    <widgetsetMode>cdn</widgetsetMode>
+                    <modules>
+                        <module>com.whymenu.ui.gwt.whymenuWidgetSet</module>
+                    </modules>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile-theme</goal>
+                            <goal>update-widgetset</goal>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
 
             <!-- As we are doing "inplace" GWT compilatio, ensure the widgetset -->
             <!-- directory is cleaned properly -->
@@ -194,7 +218,7 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.11</version>
+                <version>0.4.13</version>
                 <configuration>
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
@@ -233,54 +257,5 @@
             </plugin>
         </plugins>
 
-        <pluginManagement>
-            <plugins>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>com.vaadin</groupId>
-                                        <artifactId>
-                                            vaadin-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [7.0-SNAPSHOT,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>
-                                                update-widgetset
-                                            </goal>
-                                            <goal>resources</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-eclipse-plugin</artifactId>
-                    <configuration>
-                        <wtpversion>2.0</wtpversion>
-                        <additionalProjectnatures>
-                            <projectnature>com.vaadin.integration.eclipse.widgetsetNature</projectnature>
-                        </additionalProjectnatures>
-                        <additionalBuildcommands>
-                            <buildcommand>com.vaadin.integration.eclipse.widgetsetBuilder</buildcommand>
-                            <buildcommand>com.vaadin.integration.eclipse.addonStylesBuilder</buildcommand>
-                        </additionalBuildcommands>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 </project>

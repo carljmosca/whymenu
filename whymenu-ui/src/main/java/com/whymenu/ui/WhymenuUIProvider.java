@@ -15,11 +15,11 @@ public class WhymenuUIProvider extends UIProvider {
                 .toLowerCase().contains("mobile");
         boolean mobileParameter = event.getRequest().getParameter("mobile") != null;
 
-        if (overrideMobileUA() || mobileUserAgent || mobileParameter) {
+        //if (overrideMobileUA() || mobileUserAgent || mobileParameter) {
             return WhymenuUI.class;
-        } else {
-            return WhymenuDesktopUI.class;
-        }
+        //} else {
+        //    return WhymenuDesktopUI.class;
+        //}
     }
 
     private boolean overrideMobileUA() {

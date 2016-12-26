@@ -25,7 +25,7 @@ import com.whymenu.ui.view.CustomerOrderView;
 /**
  * The UI's "main" class
  */
-@Widgetset("com.whymenu.whymenu.ui.gwt.whymenuWidgetSet")
+@Widgetset("com.whymenu.ui.gwt.WhymenuWidgetSet")
 @Theme("whymenu")
 // Cache static application files so as the application can be started
 // and run even when the network is down.
